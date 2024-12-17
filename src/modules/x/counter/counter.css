@@ -1,4 +1,116 @@
-.custom-small-icon {
-    width: 12px;
-    height: 12px;
+.slds-grid {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap; /* Allows items to wrap to the next line */
+    margin: 0; /* Reset default margin */
+    padding: 0; /* Reset default padding */
+    list-style: none; /* For use with ul/li elements */
+}
+.slds-col {
+    flex: 1 1 auto; /* Default flexible columns */
+    padding: 0.5rem; /* Optional padding for spacing */
+}
+/* Horizontal spacing between grid items */
+.slds-gutters {
+    gap: 1rem; /* Adds consistent spacing between grid items */
+}
+/* Horizontal alignment */
+.slds-grid_align-start {
+    justify-content: flex-start;
+}
+
+.slds-grid_align-center {
+    justify-content: center;
+}
+
+.slds-grid_align-end {
+    justify-content: flex-end;
+}
+
+.slds-grid_align-space {
+    justify-content: space-between;
+}
+
+/* Vertical alignment */
+.slds-grid_vertical-align-start {
+    align-items: flex-start;
+}
+
+.slds-grid_vertical-align-center {
+    align-items: center;
+}
+
+.slds-grid_vertical-align-end {
+    align-items: flex-end;
+}
+.slds-icon_container {
+    display: inline-block;
+    position: relative;
+    line-height: 1; /* Ensures consistent vertical alignment */
+    border-radius: 25%; /* Creates a circular container */
+    overflow: hidden; /* Hides anything outside the container */
+}
+.slds-icon.custom-small-icon {
+    width: 1rem; /* Adjust the width of the icon */
+    height: 1rem; /* Adjust the height of the icon */
+    display: inline-block; /* Ensures proper inline alignment */
+    fill: #000; /* Inherits text color */
+}
+.slds-icon.custom-small-icon {
+    width: 1rem; /* Adjust the width of the icon */
+    height: 1rem; /* Adjust the height of the icon */
+    display: inline-block; /* Ensures proper inline alignment */
+    fill: #000; /* Inherits text color */
+}
+.slds-button {
+    display: inline-block;
+    font-family: "Salesforce Sans", Arial, sans-serif;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+    padding: 2px 12px;
+    line-height: 1.875rem;
+    font-size: 12px;
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+.slds-button_brand {
+    background-color: #0070d2; /* Salesforce brand blue */
+    border-color: #005fb2; /* Darker blue for the border */
+    color: #ffffff; /* White text */
+    text-shadow: none; /* No text shadow */
+    font-weight: 700; /* Bolder font for emphasis */
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+
+/* Hover state */
+.slds-button_brand:hover {
+    background-color: #005fb2; /* Darker blue on hover */
+    border-color: #005fb2;
+}
+
+/* Focus state */
+.slds-button_brand:focus {
+    outline: none;
+    box-shadow: 0 0 3px 1px rgba(0, 112, 210, 0.6); /* Blue focus ring */
+}
+
+/* Active state */
+.slds-button_brand:active {
+    background-color: #003e82; /* Even darker blue on click */
+    border-color: #003e82;
+}
+
+/* Disabled state */
+.slds-button_brand:disabled,
+.slds-button_brand[disabled] {
+    background-color: #c8daf3; /* Light gray-blue */
+    border-color: #c8daf3;
+    color: #ffffff;
+    cursor: not-allowed;
+    opacity: 0.5;
 }

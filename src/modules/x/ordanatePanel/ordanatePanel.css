@@ -1,0 +1,82 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: white;
+    height: 70vh;
+}
+
+.logo-container {
+    align-self: flex-start;
+    margin-bottom: 12px;
+}
+
+.logo {
+    width: 85px;
+}
+
+.box-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #e7f5fe;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+}
+
+.box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.link {
+    margin-top: 10px;
+    text-decoration: none;
+    color: #0070d2;
+    font-weight: bold;
+}
+
+.ask-question {
+    margin-top: 40px;
+    width: 100%;
+    text-align: center;
+}
+
+.ask-question input {
+    width: 50%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+.slds-icon_container {
+    display: inline-block;
+    position: relative;
+    line-height: 1; /* Ensures consistent vertical alignment */
+    border-radius: 25%; /* Creates a circular container */
+    overflow: hidden; /* Hides anything outside the container */
+}
+.slds-icon.custom-small-icon {
+    width: 1rem; /* Adjust the width of the icon */
+    height: 1rem; /* Adjust the height of the icon */
+    display: inline-block; /* Ensures proper inline alignment */
+    fill: #000; /* Inherits text color */
+}
+.slds-icon.custom-small-icon {
+    width: 1rem; /* Adjust the width of the icon */
+    height: 1rem; /* Adjust the height of the icon */
+    display: inline-block; /* Ensures proper inline alignment */
+    fill: #000; /* Inherits text color */
+}
