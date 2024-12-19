@@ -1,5 +1,5 @@
 import { LightningElement, track } from 'lwc';
-export default class extends LightningElement {
+export default class LandingPage extends LightningElement {
    logoUrl = './src/images/bank_logo.png'; // URL for the company logo
    @track aryFunctionList=[
           {id: 1, name: 'Get RelPro Info', imgUrl: './src/icons/utility-sprite/svg/symbols.svg#anchor'},
