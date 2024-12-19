@@ -5,7 +5,7 @@
             <img src={logoUrl} alt="Company Logo" class="logo" />
         </div>
         <div class="box-container">
-            <div class="box" onclick={handleClick} for:each={aryFunctionList} for:item="item" key={item.id}>
+            <div class="box" onclick={goToMain} for:each={aryFunctionList} for:item="item" key={item.id}>
                 <div>
                 <svg class="slds-icon custom-small-icon" aria-hidden="true">
                     <use xlink:href={item.imgUrl}></use>

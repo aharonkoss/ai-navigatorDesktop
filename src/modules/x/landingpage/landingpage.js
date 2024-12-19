@@ -11,4 +11,8 @@ export default class LandingPage extends LightningElement {
           {id: 7, name: 'Key Account Plans', imgUrl: '/icons/utility-sprite/svg/symbols.svg#key_dates'},
    ];
 
+   goToMain(event) {
+      window.location='/#/main'
+  }
+
 }

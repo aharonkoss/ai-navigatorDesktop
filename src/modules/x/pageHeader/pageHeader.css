@@ -64,6 +64,7 @@ align-items: center;
 
 .slds-media__figure {
 margin-right: 0.75rem; /* Space between icon and text */
+cursor:pointer;
 }
 
 /* Icon Container */
