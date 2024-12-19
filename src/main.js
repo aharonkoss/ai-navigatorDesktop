@@ -2,6 +2,7 @@ import { createElement } from 'lwc';
 import Navigo from 'navigo';
 //import App from 'x/app';
 import landingPage from 'x/landingpage';
+import OrnatePanel from 'x/ornatePanel';
 
 // Import other components for additional routes as needed
 // import aboutPage from 'x/aboutPage';
@@ -26,9 +27,8 @@ function renderComponent(component) {
 // Define routes
 router
     .on('/', () => renderComponent(landingPage)) // Default route
-    /* Uncomment and define additional routes
-    .on('/about', () => renderComponent(aboutPage))
-    */
+    /* Uncomment and define additional routes    */
+    .on('/main', () => renderComponent(OrnatePanel))
     .notFound(() => renderComponent(landingPage)) // Fallback route
     .resolve(); // Resolve the current route
 
