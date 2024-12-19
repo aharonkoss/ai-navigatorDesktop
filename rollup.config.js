@@ -4,6 +4,7 @@ import serve from 'rollup-plugin-serve';
 import livereload from 'rollup-plugin-livereload';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
+import copy from 'rollup-plugin-copy'
 
 const __ENV__ = process.env.NODE_ENV ?? 'development';
 
@@ -32,6 +33,11 @@ export default (args) => {
                     contentBase: 'dist',
                 }),
             args.watch && livereload('dist'),
+            copy({
+                targets: [
+                    { src: 'src/public/*', dest: 'dist/' }, // Copy static files to /dist/
+                ],
+            }),
         ],
     };
 };

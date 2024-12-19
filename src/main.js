@@ -1,7 +1,7 @@
 import { createElement } from 'lwc';
 import Navigo from 'navigo';
 //import App from 'x/app';
-import landingPage from 'x/landingPage';
+import landingPage from 'x/landingpage';
 
 // Import other components for additional routes as needed
 // import aboutPage from 'x/aboutPage';
