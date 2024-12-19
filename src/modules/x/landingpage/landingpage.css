@@ -69,14 +69,8 @@
     overflow: hidden; /* Hides anything outside the container */
 }
 .slds-icon.custom-small-icon {
-    width: 1rem; /* Adjust the width of the icon */
-    height: 1rem; /* Adjust the height of the icon */
-    display: inline-block; /* Ensures proper inline alignment */
-    fill: #000; /* Inherits text color */
-}
-.slds-icon.custom-small-icon {
-    width: 1rem; /* Adjust the width of the icon */
-    height: 1rem; /* Adjust the height of the icon */
+    width: 2rem; /* Adjust the width of the icon */
+    height: 2rem; /* Adjust the height of the icon */
     display: inline-block; /* Ensures proper inline alignment */
     fill: #000; /* Inherits text color */
 }
