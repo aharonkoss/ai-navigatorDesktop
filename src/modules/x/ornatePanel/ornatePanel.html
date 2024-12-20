@@ -1,4 +1,175 @@
 <template>
 <x-page-header></x-page-header>
-<h1>Welcome to the Ornate Panel!</h1>
+<div class="setupcontent" data-aura-rendered-by="1090:0">
+    <div class="oneAlohaPage" data-aura-rendered-by="1039:0" data-aura-class="oneAlohaPage">
+        <div class="ornate-panel-container" style="height: 100%;">
+            <div class="integrated-panel slds-grid slds-wrap">
+                <div class="main-content slds-size_9-of-12">
+                    <div if:true={isLeftPanelOpen} class={leftPanelClass}>
+                        <template if:true={showHotTopics}>
+                            <div class="accordion-item" style="width: 300px;">
+                                <div class="panel-header">
+                                    Recommended Hot Topics
+                                </div>
+                                <div class="accordion-content">
+                                    <div class="hot-topics" data-id="hot-topics">
+                                        <a href="#" onclick={handleHotTopicsClick}>Hot Topics</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-header">
+                                Generate Draft
+                            </div>
+                            <div class="accordion-content">
+                                <div class="hot-topics" data-id="draft">
+                                    <a href="#" onclick={handleGenerateDraft}>Generate</a>
+                                </div>
+                            </div>
+                        </template>
+                        
+                        <template if:true={isSalespersonInputsActive}>
+                            <div class="accordion-item">
+                                <div class="accordion-header">
+                                    Salesperson Inputs
+                                </div>
+                                <div class="accordion-content">
+                                    <!--
+                                    <c-salesperson-inputs
+                                        meetingid={meetingPreparationId}
+                                        onformsubmitted={handleSalespersonFormSubmitted}
+                                        onformerror={handleSalespersonFormError}>
+                                    </c-salesperson-inputs>
+                                    -->
+                                </div>
+                            </div>
+                        </template>
+                        
+                        <template if:true={isAIResearchSummaryActive}>
+                            <div class="accordion-item">
+                                <div class="accordion-header">
+                                    AI Research Summary
+                                </div>
+                                <div class="accordion-content">
+                                    <!--
+                                      <c-ai-research-summary meetingid={meetingPreparationId}></c-ai-research-summary>
+                                    -->
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                    <div if:true={isChatPanelOpen} class={chatPanelClass}>
+                        <div class="chat-content">
+                            <div class="chat-body">
+                                <div class="chat-messages">
+                                    <template for:each={messages} for:item="message">
+                                        <div key={message.id} class="slds-grid" style="margin-bottom: 1rem; ">
+                                            <div if:true={message.withIcon}>
+                                                <lightning-icon icon-name="standard:story" size="small" style="border-radius: 50%;"></lightning-icon>
+                                            </div>
+                                            <div class={message.messageClass}>
+                                                <div class={message.senderClass}>{message.senderDetail}</div>
+                                                <template if:true={message.isFormatted}>
+                                                    <div class="formatted-message" data-id={message.id}></div>
+                                                </template>
+                                                <template if:false={message.isFormatted}>
+                                                    <div>{message.text}</div>
+                                                </template>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat-input-container" style="align-items: center;">
+                            <textarea class="message-input" style="padding-right: 45px;" placeholder="Type your message..." onkeyup={handleKeyUp}></textarea>
+                            <lightning-icon icon-name="utility:send" style="cursor:pointer;position: absolute;margin-left: -34px;right: 20px;" onclick={sendMessage}></lightning-icon>
+                            <!-- <button class="generate-draft-button" onclick={handleGenerateDraft}>Generate Draft</button> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="category-panel slds-size_3-of-12">
+                    <!--
+                    <c-client-connect-strategy
+                        onselectionchange={handleClientConnectStrategyChange}
+                    ></c-client-connect-strategy>
+                    -->
+                    <div class="panel-header">Categories</div>
+                    <ul class="category-list">
+                        <template for:each={categoriesWithClasses} for:item="category">
+                            <li key={category.id} class={category.itemClass}>
+                                <div class={category.iconClass}><lightning-icon icon-name="standard:category" style="background-color: #afc4de;"></lightning-icon></div>
+                                <span class="category-text" data-id={category.id} onclick={handleCategoryClick}>{category.name}</span>
+                                <lightning-input if:true={category.checkbox} checked={category.checked} type="checkbox" style="position: absolute;right:0;" data-id={category.id} onchange={handleCheckbox}></lightning-input>
+                            </li>
+                        </template>
+                    </ul>
+                    <div class="slds-p-top_medium slds-p-bottom_medium slds-p-right_small" style="text-align: right;">
+                        <lightning-button label="New Meeting" variant="neutral" onclick={handleNewMeeting}></lightning-button>&nbsp;&nbsp;
+                        <lightning-button label="Print Call Plan" class="print-call-plan" variant="brand" disabled={isPrintCallPlanDisable} onclick={handlePrintCallPlan}></lightning-button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal for Hot Topics -->
+            <template if:true={isModalOpen}>
+                <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal hot-topics slds-fade-in-open">
+                    <div class="slds-modal__container">
+                        <header class="slds-modal__header">
+                            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                                X
+                            </button>
+                            <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">
+                                Hot Topics - {selectedCategoryName}
+                            </h2>
+                        </header>
+                        <div class="slds-modal__content slds-p-around_x-large" data-id="page-icon" id="modal-content-id-1">
+                            <span if:true={isPreviousTopic} data-name="pre" onclick={handleTopicPage} class="pre-topic topic-pagination"><lightning-icon icon-name="utility:chevronleft" class="pagination-icon"></lightning-icon></span>
+                            <lightning-formatted-rich-text value={hotTopicText}></lightning-formatted-rich-text>
+                            <span if:true={isNextTopic} data-name="next" onclick={handleTopicPage} class="next-topic topic-pagination"><lightning-icon icon-name="utility:chevronright" class="pagination-icon"></lightning-icon></span>
+                        </div>
+                        <footer class="slds-modal__footer">
+                            <button class="slds-button slds-button_neutral" onclick={closeModal}>Close</button>
+                        </footer>
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+            </template>
+
+            <!-- Modal for Draft -->
+            <template if:true={isDraftModalOpen}>
+                <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                    <div class="slds-modal__container">
+                        <header class="slds-modal__header">
+                            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                                X
+                            </button>
+                            <h2 class="slds-text-heading_medium slds-hyphenate">
+                                Draft for {selectedCategory}
+                            </h2>
+                        </header>
+                        <div class="slds-modal__content slds-p-around_medium">
+                            <template if:true={draft}>
+                                <div class="slds-p-around_medium" style="max-height: 350px;">
+                                    <lightning-input-rich-text type="text" label="Draft" value={draft.Draft_Content__c} onchange={handleDraftChange}></lightning-input-rich-text>
+                                </div>
+                            </template>
+                            <template if:false={draft}>
+                                No draft found!
+                            </template>
+                        </div>
+                        <footer class="slds-modal__footer">
+                            <template if:true={draft}>
+                                <lightning-button style="margin:5px;" label="Save Draft" class="print-call-plan" variant="brand" onclick={saveDraft}></lightning-button>
+                            </template>
+                            <template if:false={draft}>
+                                <button class="slds-button slds-button_neutral" onclick={closeModal}>Close</button>
+                            </template>
+                        </footer>
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+            </template>
+        </div>
+    </div>
+</div>
 </template>
