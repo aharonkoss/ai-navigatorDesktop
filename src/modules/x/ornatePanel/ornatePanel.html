@@ -64,7 +64,7 @@
                                     <template for:each={messages} for:item="message">
                                         <div key={message.id} class="slds-grid" style="margin-bottom: 1rem; ">
                                             <div if:true={message.withIcon}>
-                                                <lightning-icon icon-name="standard:story" size="small" style="border-radius: 50%;"></lightning-icon>
+                                                <x-lightning-icon iconurl="/icons/standard-sprite/svg/symbols.svg#story"><x-lightning-icon>
                                             </div>
                                             <div class={message.messageClass}>
                                                 <div class={message.senderClass}>{message.senderDetail}</div>
