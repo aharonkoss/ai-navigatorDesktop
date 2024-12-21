@@ -6,7 +6,7 @@
             <div class="integrated-panel slds-grid slds-wrap">
                 <div class="main-content slds-size_9-of-12">
                     <div if:true={isLeftPanelOpen} class={leftPanelClass}>
-                        <template if:true={showHotTopics}>
+                        <div if:true={showHotTopics}>
                             <div class="accordion-item" style="width: 300px;">
                                 <div class="panel-header">
                                     Recommended Hot Topics
@@ -25,7 +25,7 @@
                                     <a href="#" onclick={handleGenerateDraft}>Generate</a>
                                 </div>
                             </div>
-                        </template>
+                        </div>
                         
                         <template if:true={isSalespersonInputsActive}>
                             <div class="accordion-item">
@@ -61,8 +61,7 @@
                         <div class="chat-content">
                             <div class="chat-body">
                                 <div class="chat-messages">
-                                    <template for:each={messages} for:item="message">
-                                        <div key={message.id} class="slds-grid" style="margin-bottom: 1rem; ">
+                                        <div for:each={messages} for:item="message" key={message.id} class="slds-grid" style="margin-bottom: 1rem; ">
                                             <div if:true={message.withIcon}>
                                                     <x-lightning-icon iconurl="/icons/standard-sprite/svg/symbols.svg#story"></x-lightning-icon>
                                             </div>
@@ -76,7 +75,6 @@
                                                 </template>
                                             </div>
                                         </div>
-                                    </template>
                                 </div>
                             </div>
                         </div>
@@ -98,8 +96,8 @@
                     -->
                     <div class="panel-header">Categories</div>
                     <ul class="category-list">
-                        <template for:each={categoriesWithClasses} for:item="category">
-                            <li key={category.id} class={category.itemClass}>
+                        <div for:each={categoriesWithClasses} for:item="category" key={category.id}>
+                            <li class={category.itemClass}>
                                 <div class={category.iconClass}>
                                     <!--
                                      <lightning-icon icon-name="standard:category" style="background-color: #afc4de;"></lightning-icon>
@@ -118,7 +116,7 @@
                                     cssclass="slds-checkbox absolute-right"
                                ></x-lightning-input>
                             </li>
-                        </template>
+                        </div>
                     </ul>
                     <div class="slds-p-top_medium slds-p-bottom_medium slds-p-right_small" style="text-align: right;">
                         <!--
