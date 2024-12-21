@@ -1,0 +1,50 @@
+.slds-form-element {
+    margin-bottom: 1rem; /* Space between form elements */
+}
+
+.slds-form-element__label {
+    font-weight: 700; /* Bold label */
+    margin-bottom: 0.5rem;
+    display: block;
+    color: #080707;
+}
+
+.slds-form-element__control {
+    position: relative;
+}
+
+.slds-input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #d8dde6;
+    border-radius: 0.25rem;
+    font-size: 1rem;
+    color: #080707;
+    transition: border-color 0.2s ease-in-out;
+}
+
+.slds-input:focus {
+    outline: none;
+    border-color: #0070d2; /* Salesforce blue on focus */
+    box-shadow: 0 0 0 3px rgba(0, 112, 210, 0.3);
+}
+
+.slds-form-element__help {
+    color: #d0021b; /* Red for error messages */
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+}
+.slds-checkbox {
+    margin: 0;
+    transform: scale(1.5); /* Optional: Adjust size of checkbox */
+}
+.absolute-right {
+    position: absolute;
+    right:0;
+}
+
+.slds-form-element__label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* Space between label and input (checkbox) */
+}

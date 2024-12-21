@@ -1,7 +1,7 @@
 <template>
 <x-page-header></x-page-header>
-<div class="setupcontent" data-aura-rendered-by="1090:0">
-    <div class="oneAlohaPage" data-aura-rendered-by="1039:0" data-aura-class="oneAlohaPage">
+<div class="setupcontent">
+    <div class="oneAlohaPage">
         <div class="ornate-panel-container" style="height: 100%;">
             <div class="integrated-panel slds-grid slds-wrap">
                 <div class="main-content slds-size_9-of-12">
@@ -64,7 +64,7 @@
                                     <template for:each={messages} for:item="message">
                                         <div key={message.id} class="slds-grid" style="margin-bottom: 1rem; ">
                                             <div if:true={message.withIcon}>
-                                                <x-lightning-icon iconurl="/icons/standard-sprite/svg/symbols.svg#story"><x-lightning-icon>
+                                                    <x-lightning-icon iconurl="/icons/standard-sprite/svg/symbols.svg#story"></x-lightning-icon>
                                             </div>
                                             <div class={message.messageClass}>
                                                 <div class={message.senderClass}>{message.senderDetail}</div>
@@ -82,7 +82,10 @@
                         </div>
                         <div class="chat-input-container" style="align-items: center;">
                             <textarea class="message-input" style="padding-right: 45px;" placeholder="Type your message..." onkeyup={handleKeyUp}></textarea>
+                            <!--
                             <lightning-icon icon-name="utility:send" style="cursor:pointer;position: absolute;margin-left: -34px;right: 20px;" onclick={sendMessage}></lightning-icon>
+                            -->
+                            <x-lightning-icon iconurl="/icons/utility-sprite/svg/symbols.svg#send"></x-lightning-icon>
                             <!-- <button class="generate-draft-button" onclick={handleGenerateDraft}>Generate Draft</button> -->
                         </div>
                     </div>
@@ -97,20 +100,49 @@
                     <ul class="category-list">
                         <template for:each={categoriesWithClasses} for:item="category">
                             <li key={category.id} class={category.itemClass}>
-                                <div class={category.iconClass}><lightning-icon icon-name="standard:category" style="background-color: #afc4de;"></lightning-icon></div>
+                                <div class={category.iconClass}>
+                                    <!--
+                                     <lightning-icon icon-name="standard:category" style="background-color: #afc4de;"></lightning-icon>
+                                    -->
+                                    <x-lightning-icon iconurl="/icons/standard-sprite/svg/symbols.svg#category"></x-lightning-icon>
+                                </div>
                                 <span class="category-text" data-id={category.id} onclick={handleCategoryClick}>{category.name}</span>
+                                <!--
                                 <lightning-input if:true={category.checkbox} checked={category.checked} type="checkbox" style="position: absolute;right:0;" data-id={category.id} onchange={handleCheckbox}></lightning-input>
+                                -->
+                                <x-lightning-input
+                                    label=""
+                                    type="checkbox"
+                                    checked={category.checked}
+                                    onchange={handleCheckbox}
+                                    cssclass="slds-checkbox absolute-right"
+                               ></x-lightning-input>
                             </li>
                         </template>
                     </ul>
                     <div class="slds-p-top_medium slds-p-bottom_medium slds-p-right_small" style="text-align: right;">
-                        <lightning-button label="New Meeting" variant="neutral" onclick={handleNewMeeting}></lightning-button>&nbsp;&nbsp;
+                        <!--
+                        <lightning-button label="New Meeting" variant="neutral" onclick={handleNewMeeting}></lightning-button>
+                        --><x-lightning-button
+                                            label="New Meeting"
+                                            variant="neutral"
+                                            cssclass="abs-right"
+                                            onclick={handleNewMeeting}
+                                        ></x-lightning-button>&nbsp;&nbsp;
+                                        <x-lightning-button
+                                            label="Print"
+                                            variant="brand"
+                                            cssclass="print-call-plan"
+                                            onclick={handlePrintCallPlan}
+                                        ></x-lightning-button>
+                        <!--
                         <lightning-button label="Print Call Plan" class="print-call-plan" variant="brand" disabled={isPrintCallPlanDisable} onclick={handlePrintCallPlan}></lightning-button>
+                        -->
                     </div>
                 </div>
             </div>
 
-            <!-- Modal for Hot Topics -->
+            <!-- Modal for Hot Topics 
             <template if:true={isModalOpen}>
                 <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal hot-topics slds-fade-in-open">
                     <div class="slds-modal__container">
@@ -123,8 +155,15 @@
                             </h2>
                         </header>
                         <div class="slds-modal__content slds-p-around_x-large" data-id="page-icon" id="modal-content-id-1">
-                            <span if:true={isPreviousTopic} data-name="pre" onclick={handleTopicPage} class="pre-topic topic-pagination"><lightning-icon icon-name="utility:chevronleft" class="pagination-icon"></lightning-icon></span>
+                            <span if:true={isPreviousTopic} data-name="pre" onclick={handleTopicPage} class="pre-topic topic-pagination">
+                                   <lightning-icon icon-name="utility:chevronleft" class="pagination-icon"></lightning-icon>
+                                <x-lightning-icon iconurl="/icons/utility-sprite/svg/symbols.svg#chevronleft"><x-lightning-icon>
+                            </span>
                             <lightning-formatted-rich-text value={hotTopicText}></lightning-formatted-rich-text>
+                            <x-lightning-formatted-rich-text
+                                value={hotTopicText}
+                                cssclass="highlight"
+                            ></x-lightning-formatted-rich-text>
                             <span if:true={isNextTopic} data-name="next" onclick={handleTopicPage} class="next-topic topic-pagination"><lightning-icon icon-name="utility:chevronright" class="pagination-icon"></lightning-icon></span>
                         </div>
                         <footer class="slds-modal__footer">
@@ -134,8 +173,8 @@
                 </section>
                 <div class="slds-backdrop slds-backdrop_open"></div>
             </template>
-
-            <!-- Modal for Draft -->
+            -->
+            <!-- Modal for Draft 
             <template if:true={isDraftModalOpen}>
                 <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
                     <div class="slds-modal__container">
@@ -151,6 +190,12 @@
                             <template if:true={draft}>
                                 <div class="slds-p-around_medium" style="max-height: 350px;">
                                     <lightning-input-rich-text type="text" label="Draft" value={draft.Draft_Content__c} onchange={handleDraftChange}></lightning-input-rich-text>
+                                     <x-lightning-input-rich-text
+                                        label="Draft"
+                                        value={draftContent}
+                                        onchange={handleDraftChange}
+                                        cssclass="highlight"
+                                    ></x-lightning-input-rich-text>
                                 </div>
                             </template>
                             <template if:false={draft}>
@@ -169,6 +214,7 @@
                 </section>
                 <div class="slds-backdrop slds-backdrop_open"></div>
             </template>
+                        -->
         </div>
     </div>
 </div>
