@@ -26,8 +26,7 @@
                                 </div>
                             </div>
                         </div>
-                        
-                        <template if:true={isSalespersonInputsActive}>
+                        <div if:true={isSalespersonInputsActive}>
                             <div class="accordion-item">
                                 <div class="accordion-header">
                                     Salesperson Inputs
@@ -42,9 +41,9 @@
                                     -->
                                 </div>
                             </div>
-                        </template>
+                        </div>
                         
-                        <template if:true={isAIResearchSummaryActive}>
+                        <div if:true={isAIResearchSummaryActive}>
                             <div class="accordion-item">
                                 <div class="accordion-header">
                                     AI Research Summary
@@ -55,7 +54,7 @@
                                     -->
                                 </div>
                             </div>
-                        </template>
+                        </div>
                     </div>
                     <div if:true={isChatPanelOpen} class={chatPanelClass}>
                         <div class="chat-content">
@@ -67,12 +66,12 @@
                                             </div>
                                             <div class={message.messageClass}>
                                                 <div class={message.senderClass}>{message.senderDetail}</div>
-                                                <template if:true={message.isFormatted}>
+                                                <div if:true={message.isFormatted}>
                                                     <div class="formatted-message" data-id={message.id}></div>
-                                                </template>
-                                                <template if:false={message.isFormatted}>
+                                                </div>
+                                                <div if:false={message.isFormatted}>
                                                     <div>{message.text}</div>
-                                                </template>
+                                                </div>
                                             </div>
                                         </div>
                                 </div>

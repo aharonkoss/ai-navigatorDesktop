@@ -4,10 +4,12 @@ export default class OrnatePanel extends LightningElement {
     @track isChecked=false;
     @track draftContent = '<p>Initial rich text content...</p>';
     handleHotTopicsClick(event) {
-
+        console.log('Hot Topics Click Function!');
+        // Add your logic here
     }
     handleGenerateDraft(event) {
-
+        console.log('Hot Topics Click Function!');
+        // Add your logic here
     }
     handleCheckboxChange(event) {
         this.isChecked = event.detail.value; // Updates the checkbox state
