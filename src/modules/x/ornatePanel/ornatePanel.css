@@ -4,6 +4,7 @@
     --slate-blue: #708090;
     --light-blue-gray: #B0C4DE;
     --ivory: #FFFFFF;
+    --white:#ffffff;
     --pearl-white: #FFFFFF;
     --green: #4CAF50;
     --serif-font: Georgia, 'Times New Roman', Times, serif;
@@ -35,7 +36,6 @@
     display: flex;
     height: 100%;
     overflow: auto;
-    /* position: relative; */
 }
 .slds-size_9-of-12 {
     flex: 0 0 75%; /* 9/12 = 75% */
@@ -53,7 +53,7 @@
 /* Left Panel Styles */
 .left-panel {
     /* width: 300px; */
-    background-color: var(--ivory);
+    background-color: var(--white);
     border-right: 2px solid var(--slate-blue);
     transition: transform 0.3s ease-in-out, width 0.3s ease-in-out;
     /* position: absolute; */
@@ -132,7 +132,7 @@
     /* flex-grow: 1; */
     display: flex;
     flex-direction: column;
-    background-color: var(--pearl-white);
+    background-color: var(--white);
     transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
     overflow: auto;
     margin-bottom: 0; /* Add margin at the bottom */
@@ -250,7 +250,7 @@
     border-radius: 20px;
     /* font-family: var(--serif-font); */
     font-size: 1rem;
-    background-color: var(--ivory);
+    background-color: var(--white);
     color: var(--charcoal);
     resize: none;
     min-height: 20px;
@@ -261,7 +261,7 @@
 /* Category Panel Styles */
 .category-panel {
     /* width: 300px; Fixed width */
-    background-color: var(--ivory);
+    background-color: var(--white);
     border-left: 2px solid var(--slate-blue);
     overflow-y: auto;
     height: 100%;
@@ -361,7 +361,7 @@
 }
 
 ::-webkit-scrollbar-track {
-    background: var(--ivory);
+    background: var(--white);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -404,7 +404,7 @@
 
 .submit-btn {
     background-color: rgba(35, 118, 204, 1) ;/*var(--slate-blue);*/
-    color: var(--ivory);
+    color: var(--white);
     padding: 0.5rem 1rem;
     border: none;
     border-radius: 4px;

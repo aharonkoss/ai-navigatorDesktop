@@ -3,6 +3,11 @@ export default class OrnatePanel extends LightningElement {
     @track isLeftPanelOpen=true;
     @track isChecked=false;
     @track draftContent = '<p>Initial rich text content...</p>';
+    @track isSalespersonInputsActive=true;
+    @track showHotTopics=true;
+    @track isAIResearchSummaryActive=true;
+    @track isChatPanelOpen=true;
+
     handleHotTopicsClick(event) {
         console.log('Hot Topics Click Function!');
         // Add your logic here
