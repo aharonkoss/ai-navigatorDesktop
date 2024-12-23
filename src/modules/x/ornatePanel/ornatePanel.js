@@ -7,7 +7,6 @@ export default class OrnatePanel extends LightningElement {
     @track showHotTopics=true;
     @track isAIResearchSummaryActive=true;
     @track isChatPanelOpen=true;
-
     handleHotTopicsClick(event) {
         console.log('Hot Topics Click Function!');
         // Add your logic here
@@ -37,6 +36,9 @@ export default class OrnatePanel extends LightningElement {
     get isSalespersonInputsActive() {
         //return this.activeCategoryId === 'salesperson-inputs';
         return false;
+    }
+    get leftPanelClass() {
+        return `left-panel ${this.isLeftPanelOpen ? 'open' : ''} ${this.isWidePanel ? 'wide' : ''}`;
     }
     
 }

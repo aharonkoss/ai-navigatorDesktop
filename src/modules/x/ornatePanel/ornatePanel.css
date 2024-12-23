@@ -13,7 +13,7 @@
 }  
 
 .setupcontent {
-    width: 100%;
+    width: 99%;
     height: calc(100% - 75px);
     flex: 1 1 auto;
     position: absolute;
@@ -28,7 +28,7 @@
     top: 0;
     height: 100%;
     width: 100%;
-    background-color: #fffff0;
+    background-color: #ffffff;
 }
 
 /* Main Container */
@@ -161,8 +161,9 @@
 
 /* Chat body - contains messages */
 .chat-body {
-    overflow-y: auto;
+    /*overflow-y: auto;*/
     height: calc(100%);
+    width: 99%;
 }
 
 /* Chat Messages Container */
@@ -174,6 +175,7 @@
     flex-direction: column;
     justify-content: flex-start;
     width: 100%;
+    min-height: 100px;
 }
 
 /* Individual Message Styles */
@@ -240,8 +242,10 @@
     padding: 10px;
     /* position: absolute; */
     bottom: 0px;
-    width: 100%;
+    width: 70%;
     background-color: #FFFFFF;
+    position: fixed;
+    bottom:2%;
 }
 .message-input {
     flex-grow: 1;
@@ -331,7 +335,8 @@
     background-color: var(--green);
 }
 .background-antiquewhite{
-    background-color: #afc4de;
+    /*background-color: #afc4de;*/
+    background-color: #ffffff;
 }
 .category-text {
     font-size: 0.8rem;
@@ -459,6 +464,117 @@
     width: 70rem !important;
     height: 85vh !important;
     top: 5rem !important;
+}
+/* Base Grid Container */
+.slds-grid {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/* Vertical Alignment */
+.slds-align-top {
+    align-items: flex-start;
+}
+
+.slds-align-middle {
+    align-items: center;
+}
+
+.slds-align-bottom {
+    align-items: flex-end;
+}
+
+/* Horizontal Alignment */
+.slds-grid_align-start {
+    justify-content: flex-start;
+}
+
+.slds-grid_align-center {
+    justify-content: center;
+}
+
+.slds-grid_align-end {
+    justify-content: flex-end;
+}
+
+.slds-grid_align-space {
+    justify-content: space-between;
+}
+
+.slds-grid_align-space-around {
+    justify-content: space-around;
+}
+
+/* Grid Items Wrapping */
+.slds-wrap {
+    flex-wrap: wrap;
+}
+
+.slds-nowrap {
+    flex-wrap: nowrap;
+}
+
+/* Vertical Grids */
+.slds-vertical {
+    flex-direction: column;
+}
+
+/* Column Sizing */
+.slds-size_1-of-1 {
+    flex: 0 0 100%;
+    max-width: 100%;
+}
+
+.slds-size_1-of-2 {
+    flex: 0 0 50%;
+    max-width: 50%;
+}
+
+.slds-size_1-of-3 {
+    flex: 0 0 33.333%;
+    max-width: 33.333%;
+}
+
+.slds-size_2-of-3 {
+    flex: 0 0 66.666%;
+    max-width: 66.666%;
+}
+
+.slds-size_1-of-4 {
+    flex: 0 0 25%;
+    max-width: 25%;
+}
+
+.slds-size_3-of-4 {
+    flex: 0 0 75%;
+    max-width: 75%;
+}
+
+.slds-size_1-of-6 {
+    flex: 0 0 16.666%;
+    max-width: 16.666%;
+}
+
+.slds-size_5-of-6 {
+    flex: 0 0 83.333%;
+    max-width: 83.333%;
+}
+
+/* Offsets */
+.slds-col_bump-left {
+    margin-left: auto;
+}
+
+.slds-col_bump-right {
+    margin-right: auto;
+}
+.custom-icon-container {
+    position: absolute;
+    right: 2%;
+    bottom: 32%;
 }
 
 /* Responsive Design */

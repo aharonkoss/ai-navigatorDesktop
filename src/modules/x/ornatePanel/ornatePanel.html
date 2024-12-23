@@ -60,7 +60,7 @@
                         <div class="chat-content">
                             <div class="chat-body">
                                 <div class="chat-messages">
-                                        <div for:each={messages} for:item="message" key={message.id} class="slds-grid" style="margin-bottom: 1rem; ">
+                                        <span for:each={messages} for:item="message" key={message.id} class="slds-grid" style="margin-bottom: 1rem;">
                                             <div if:true={message.withIcon}>
                                                     <x-lightning-icon iconurl="/icons/standard-sprite/svg/symbols.svg#story"></x-lightning-icon>
                                             </div>
@@ -73,7 +73,7 @@
                                                     <div>{message.text}</div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </span>
                                 </div>
                             </div>
                         </div>
@@ -82,7 +82,9 @@
                             <!--
                             <lightning-icon icon-name="utility:send" style="cursor:pointer;position: absolute;margin-left: -34px;right: 20px;" onclick={sendMessage}></lightning-icon>
                             -->
-                            <x-lightning-icon iconurl="/icons/utility-sprite/svg/symbols.svg#send"></x-lightning-icon>
+                            <div class="custom-icon-container ">
+                               <x-lightning-icon iconurl="/icons/utility-sprite/svg/symbols.svg#send"></x-lightning-icon>
+                            </div>
                             <!-- <button class="generate-draft-button" onclick={handleGenerateDraft}>Generate Draft</button> -->
                         </div>
                     </div>
