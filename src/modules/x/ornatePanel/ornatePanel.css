@@ -242,7 +242,7 @@
     padding: 10px;
     /* position: absolute; */
     bottom: 0px;
-    width: 70%;
+    width: 57%;
     background-color: #FFFFFF;
     position: fixed;
     bottom:2%;
@@ -274,13 +274,14 @@
     position: absolute;
     right: 0;
     top: 0;
+    width:21%;
 }
 
 
 .panel-header {
     background: linear-gradient(135deg, #0170c0 0%, #0159a3 50%, #013e73 100%); /*linear-gradient(135deg, var(#0159a3) 0%, var(#013e73) 100%);*/
     color: var(--ivory);
-    padding: 0.3rem;
+    padding: 0.6rem;
     text-align: center;
     /* font-family: var(--decorative-font); */
     font-size: 1.2rem;
@@ -302,7 +303,7 @@
 
 /* Individual Category Item Styles */
 .category-item {
-    padding: 0.6rem;
+    /*padding: 0.6rem;*/
     display: flex;
     align-items: center;
     transition: all 0.3s ease;
@@ -340,6 +341,7 @@
 }
 .category-text {
     font-size: 0.8rem;
+    width:50%;
 }
 
 .category-item:first-child::before {

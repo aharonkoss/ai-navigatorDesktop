@@ -1,0 +1,15 @@
+.slds-form-element {
+    margin-bottom: 1rem; /* Spacing between form elements */
+}
+
+.slds-form-element__label {
+    display: block;
+    font-weight: 700; /* Bold for emphasis */
+    margin-bottom: 0.25rem; /* Space between label and combobox */
+    color: #080707;
+}
+
+.slds-combobox_container {
+    position: relative;
+    width: 100%;
+}

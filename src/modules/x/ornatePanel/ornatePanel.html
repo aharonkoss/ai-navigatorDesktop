@@ -95,6 +95,20 @@
                         onselectionchange={handleClientConnectStrategyChange}
                     ></c-client-connect-strategy>
                     -->
+                    <div class="panel-header">
+                        Client Connection Strategy
+                    </div>
+                    <div class="accordion-content">
+                        <div class="hot-topics">
+                            <x-lightning-combobox
+                            label="Conversation Style"
+                            placeholder="Default"
+                            options={conversationOptions}
+                            default-value="default"
+                            onchange={handleConversationStyleChange}
+                            ></x-lightning-combobox>
+                        </div>
+                    </div>
                     <div class="panel-header">Categories</div>
                     <ul class="category-list">
                         <div for:each={categoriesWithClasses} for:item="category" key={category.id}>
@@ -109,27 +123,28 @@
                                 <!--
                                 <lightning-input if:true={category.checkbox} checked={category.checked} type="checkbox" style="position: absolute;right:0;" data-id={category.id} onchange={handleCheckbox}></lightning-input>
                                 -->
-                                <x-lightning-input
-                                    label=""
-                                    type="checkbox"
-                                    checked={category.checked}
-                                    onchange={handleCheckbox}
-                                    cssclass="slds-checkbox absolute-right"
-                               ></x-lightning-input>
+                                <span style="text-align:right;width:30%;">
+                                    <x-lightning-input
+                                        label=""
+                                        type="checkbox"
+                                        checked={category.checked}
+                                        onchange={handleCheckbox}
+                                        cssclass="slds-checkbox absolute-right"
+                                ></x-lightning-input>
+                               </span>
                             </li>
                         </div>
-                    </ul>
                     <div class="slds-p-top_medium slds-p-bottom_medium slds-p-right_small" style="text-align: right;">
                         <!--
                         <lightning-button label="New Meeting" variant="neutral" onclick={handleNewMeeting}></lightning-button>
                         --><x-lightning-button
                                             label="New Meeting"
                                             variant="neutral"
-                                            cssclass="abs-right"
+                                            cssclass=""
                                             onclick={handleNewMeeting}
                                         ></x-lightning-button>&nbsp;&nbsp;
                                         <x-lightning-button
-                                            label="Print"
+                                            label="Print Call Plan"
                                             variant="brand"
                                             cssclass="print-call-plan"
                                             onclick={handlePrintCallPlan}
@@ -138,6 +153,7 @@
                         <lightning-button label="Print Call Plan" class="print-call-plan" variant="brand" disabled={isPrintCallPlanDisable} onclick={handlePrintCallPlan}></lightning-button>
                         -->
                     </div>
+                </ul>
                 </div>
             </div>
 
