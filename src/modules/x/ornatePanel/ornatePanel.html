@@ -25,33 +25,12 @@
                                     <a href="#" onclick={handleGenerateDraft}>Generate</a>
                                 </div>
                             </div>
-                        </div>
-                        <div if:true={isSalespersonInputsActive}>
-                            <div class="accordion-item">
-                                <div class="accordion-header">
-                                    Salesperson Inputs
-                                </div>
-                                <div class="accordion-content">
-                                    <!--
-                                    <c-salesperson-inputs
-                                        meetingid={meetingPreparationId}
-                                        onformsubmitted={handleSalespersonFormSubmitted}
-                                        onformerror={handleSalespersonFormError}>
-                                    </c-salesperson-inputs>
-                                    -->
-                                </div>
+                            <div class="panel-header">
+                                Discovery Call Plan
                             </div>
-                        </div>
-                        
-                        <div if:true={isAIResearchSummaryActive}>
-                            <div class="accordion-item">
-                                <div class="accordion-header">
-                                    AI Research Summary
-                                </div>
-                                <div class="accordion-content">
-                                    <!--
-                                      <c-ai-research-summary meetingid={meetingPreparationId}></c-ai-research-summary>
-                                    -->
+                            <div class="accordion-content">
+                                <div class="hot-topics" data-id="draft">
+                                     &nbsp;
                                 </div>
                             </div>
                         </div>
@@ -107,6 +86,14 @@
                             default-value="default"
                             onchange={handleConversationStyleChange}
                             ></x-lightning-combobox>
+                            <x-lightning-combobox
+                                label="Client Type"
+                                placeholder="Default"
+                                options={clientTypeOptions}
+                                default-value="default"
+                                onchange={handleClientTypeChange}
+                              ></x-lightning-combobox>
+                              <div style="border-top: 0.15rem solid #708090;width: 100%;position:absolute;left:0px;">&nbsp;</div>
                         </div>
                     </div>
                     <div class="panel-header">Categories</div>
