@@ -93,7 +93,17 @@
                                 default-value="default"
                                 onchange={handleClientTypeChange}
                               ></x-lightning-combobox>
-                              <div style="border-top: 0.15rem solid #708090;width: 100%;position:absolute;left:0px;">&nbsp;</div>
+                              <div style="border-top: 0.15rem solid #708090;width: 100%;position:absolute;left:0px;margin-bottom:5px;">&nbsp;</div>
+                              <div style="padding-top:30px;">
+                                <x-lightning-radio-group
+                                        label="Role Play Mode"
+                                        name="rolePlayGroup"
+                                        options={radioOptions}
+                                        value={selectedValue}
+                                        iconurl="/icons/utility-sprite/svg/symbols.svg#settings"
+                                        onchange={handleRadioChange}
+                                ></x-lightning-radio-group>
+                            </div>
                         </div>
                     </div>
                     <div class="panel-header">Categories</div>

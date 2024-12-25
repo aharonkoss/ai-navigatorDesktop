@@ -29,6 +29,12 @@ export default class OrnatePanel extends LightningElement {
         {label: 'Analytical', value: 'analytical'},
         {label: 'Default', value: 'default'}
 ];
+     @track radioOptions = [
+        { label: 'Client Role', value: 'clientRole' },
+        { label: 'Salesperson Role', value: 'salesPersonRole' },
+        { label: 'Default', value: 'default' },
+    ];
+    @track selectedValue='salesPersonRole';
     handleHotTopicsClick(event) {
         console.log('Hot Topics Click Function!');
         // Add your logic here
@@ -56,6 +62,9 @@ export default class OrnatePanel extends LightningElement {
     }
     handleClientTypeChange(event) {
         console.log('Selected Client Type:', event.detail.value);
+    }
+    handleRadioChange(event) {
+        this.selectedValue = event.detail.value;
     }
     get showHotTopics() {
      //   return this.activeCategoryId && this.activeCategoryId !== 'salesperson-inputs' && this.activeCategoryId !== 'ai-research-summary';
