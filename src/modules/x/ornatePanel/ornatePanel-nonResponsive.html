@@ -56,15 +56,24 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="chat-input-container">
-                                <textarea class="message-input" placeholder="Type your message..." onkeyup={handleKeyUp}></textarea>
-                                <div class="custom-icon-container">
+                            <div class="chat-input-container" style="align-items: center;">
+                                <textarea class="message-input" style="padding-right: 45px;" placeholder="Type your message..." onkeyup={handleKeyUp}></textarea>
+                                <!--
+                                <lightning-icon icon-name="utility:send" style="cursor:pointer;position: absolute;margin-left: -34px;right: 20px;" onclick={sendMessage}></lightning-icon>
+                                -->
+                                <div class="custom-icon-container ">
                                    <x-lightning-icon iconurl="/icons/utility-sprite/svg/symbols.svg#send"></x-lightning-icon>
                                 </div>
+                                <!-- <button class="generate-draft-button" onclick={handleGenerateDraft}>Generate Draft</button> -->
                             </div>
                         </div>
                     </div>
-                    <div class="category-panel slds-size_3-of-12 responsive-panel">
+                    <div class="category-panel slds-size_3-of-12">
+                        <!--
+                        <c-client-connect-strategy
+                            onselectionchange={handleClientConnectStrategyChange}
+                        ></c-client-connect-strategy>
+                        -->
                         <div class="panel-header">
                             Client Connection Strategy
                         </div>
@@ -102,9 +111,15 @@
                             <div for:each={categoriesWithClasses} for:item="category" key={category.id}>
                                 <li class={category.itemClass}>
                                     <div class={category.iconClass}>
+                                        <!--
+                                         <lightning-icon icon-name="standard:category" style="background-color: #afc4de;"></lightning-icon>
+                                        -->
                                         <x-lightning-icon iconurl="/icons/standard-sprite/svg/symbols.svg#category"></x-lightning-icon>
                                     </div>
                                     <span class="category-text" data-id={category.id} onclick={handleCategoryClick}>{category.name}</span>
+                                    <!--
+                                    <lightning-input if:true={category.checkbox} checked={category.checked} type="checkbox" style="position: absolute;right:0;" data-id={category.id} onchange={handleCheckbox}></lightning-input>
+                                    -->
                                     <span style="text-align:right;width:30%;">
                                         <x-lightning-input
                                             label=""
@@ -112,23 +127,28 @@
                                             checked={category.checked}
                                             onchange={handleCheckbox}
                                             cssclass="slds-checkbox absolute-right"
-                                        ></x-lightning-input>
+                                    ></x-lightning-input>
                                    </span>
                                 </li>
                             </div>
                         <div class="slds-p-top_medium slds-p-bottom_medium slds-p-right_small" style="text-align: right;">
-                            <x-lightning-button
-                                label="New Meeting"
-                                variant="neutral"
-                                cssclass=""
-                                onclick={handleNewMeeting}
-                            ></x-lightning-button>&nbsp;&nbsp;
-                            <x-lightning-button
-                                label="Print Call Plan"
-                                variant="brand"
-                                cssclass="print-call-plan"
-                                onclick={handlePrintCallPlan}
-                            ></x-lightning-button>
+                            <!--
+                            <lightning-button label="New Meeting" variant="neutral" onclick={handleNewMeeting}></lightning-button>
+                            --><x-lightning-button
+                                                label="New Meeting"
+                                                variant="neutral"
+                                                cssclass=""
+                                                onclick={handleNewMeeting}
+                                            ></x-lightning-button>&nbsp;&nbsp;
+                                            <x-lightning-button
+                                                label="Print Call Plan"
+                                                variant="brand"
+                                                cssclass="print-call-plan"
+                                                onclick={handlePrintCallPlan}
+                                            ></x-lightning-button>
+                            <!--
+                            <lightning-button label="Print Call Plan" class="print-call-plan" variant="brand" disabled={isPrintCallPlanDisable} onclick={handlePrintCallPlan}></lightning-button>
+                            -->
                         </div>
                     </ul>
                     </div>
@@ -137,4 +157,3 @@
         </div>
     </div>
     </template>
-    
