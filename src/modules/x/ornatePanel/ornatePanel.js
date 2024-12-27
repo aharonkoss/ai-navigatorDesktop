@@ -34,7 +34,13 @@ export default class OrnatePanel extends LightningElement {
         { label: 'Salesperson Role', value: 'salesPersonRole' },
         { label: 'Default', value: 'default' },
     ];
+    @track activeCategoryId='salesperson-inputs';
     @track selectedValue='salesPersonRole';
+    @track clientConnectionCss='accordion-content';
+    @track categoriesCss='category-list';
+    @track hotTopicsCss='accordion-content';
+    @track generateDraftCss='accordion-content';
+    @track discoveryCallPlanCss='accordion-content';
     handleHotTopicsClick(event) {
         console.log('Hot Topics Click Function!');
         // Add your logic here
@@ -66,6 +72,45 @@ export default class OrnatePanel extends LightningElement {
     handleRadioChange(event) {
         this.selectedValue = event.detail.value;
     }
+    handleClientConnectionCssClick(event) {
+        if(this.clientConnectionCss==='accordion-content') {
+            this.clientConnectionCss='accordion-content-expand';
+        } else {
+            this.clientConnectionCss='accordion-content';
+        }
+    }
+    handleCategoriesCssClick(event) {
+        if(this.categoriesCss==='category-list') {
+            console.log(`handleCategoriesCssClick this.categoriesWithClasses:${JSON.stringify(this.categoriesWithClasses)}`)
+            this.categoriesCss='category-list-expand';
+        } else {
+            this.categoriesCss='category-list';
+        }
+    }
+    handleHotTopicsCssClick(event) {
+        if(this.hotTopicsCss==='accordion-content') {
+            this.hotTopicsCss='accordion-content-expand';
+        } else {
+            this.hotTopicsCss='accordion-content';
+        }
+    }
+    handleGenerateDraftCssClick(event) {
+        if(this.generateDraftCss==='accordion-content') {
+            this.generateDraftCss='accordion-content-expand';
+        } else {
+            this.generateDraftCss='accordion-content';
+        }
+    }
+    handleDiscoveryCallPlanCssClick(event) {
+        if(this.discoveryCallPlanCss==='accordion-content') {
+            this.discoveryCallPlanCss='accordion-content-expand';
+        } else {
+            this.discoveryCallPlanCss='accordion-content';
+        }
+    }
+    handleCategoryClick(event) {
+        console.log(`ornatePanel Category Clicked. Data Id: ${event.detail.value}`);
+    }
     get showHotTopics() {
      //   return this.activeCategoryId && this.activeCategoryId !== 'salesperson-inputs' && this.activeCategoryId !== 'ai-research-summary';
           return true;
@@ -78,7 +123,8 @@ export default class OrnatePanel extends LightningElement {
         return `left-panel ${this.isLeftPanelOpen ? 'open' : ''} ${this.isWidePanel ? 'wide' : ''}`;
     }
     get categoriesWithClasses() {
-        return this.categories.map(category => ({
+        return this.categories
+        .map(category => ({
             ...category,
             itemClass:`category-item ${category.id == this.activeCategoryId ? ' background-antiquewhite' : ''}`,
             iconClass: `category-icon ${category.completed ? 'completed' : ''}`
