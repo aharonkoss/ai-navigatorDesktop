@@ -108,8 +108,8 @@
                         </div>
                         <div class="panel-header" onclick={handleCategoriesCssClick}>Categories</div>
                         <ul class={categoriesCss}>
-                            <template for:each={categoriesWithClasses} for:item="category">
-                                <li class={category.itemClass} key={category.id}>
+                            <div for:each={categoriesWithClasses} for:item="category" key={category.id}>
+                                <li class={category.itemClass}>
                                     <div class={category.iconClass}>
                                         <!--
                                          <lightning-icon icon-name="standard:category" style="background-color: #afc4de;"></lightning-icon>
@@ -130,11 +130,12 @@
                                     ></x-lightning-input>
                                    </span>
                                 </li>
-                            </template>
+                               
+                            </div>
                         <div class="slds-p-top_medium slds-p-bottom_medium slds-p-right_small" style="text-align: right;">
                             <!--
                             <lightning-button label="New Meeting" variant="neutral" onclick={handleNewMeeting}></lightning-button>
-                            --><x-lightning-button
+                            --> <x-lightning-button
                                                 label="New Meeting"
                                                 variant="neutral"
                                                 cssclass=""

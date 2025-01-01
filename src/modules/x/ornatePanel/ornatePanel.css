@@ -329,12 +329,12 @@
     width: 20px;
     height: 20px;
     margin-right: 0.8rem;
-    background-color: #0176d3; /*var(--slate-blue);*/
-    border: 1px solid var(--charcoal);
+    background-color: transparent; /*var(--slate-blue);*/
+    /*border: 1px solid var(--charcoal);*/
     border-radius: 50%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    /*justify-content: center;*/
     position: relative;
     /* z-index: 2; */
 }
@@ -344,7 +344,7 @@
 }
 .background-antiquewhite{
     /*background-color: #afc4de;*/
-    background-color: #ffffff;
+    background-color: var(--green);
 }
 .category-text {
     font-size: 0.8rem;
