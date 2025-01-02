@@ -3,6 +3,7 @@ import Navigo from 'navigo';
 //import App from 'x/app';
 import landingPage from 'x/landingpage';
 import OrnatePanel from 'x/ornatePanel';
+import LoginPage from 'x/loginPage';
 
 // Import other components for additional routes as needed
 // import aboutPage from 'x/aboutPage';
@@ -28,8 +29,9 @@ function renderComponent(component) {
 router
     .on('/', () => renderComponent(landingPage)) // Default route
     /* Uncomment and define additional routes    */
+    .on('/login', () => renderComponent(LoginPage))
     .on('/main', () => renderComponent(OrnatePanel))
-    .notFound(() => renderComponent(landingPage)) // Fallback route
+    .notFound(() => renderComponent(LoginPage)) // Fallback route
     .resolve(); // Resolve the current route
 
 
