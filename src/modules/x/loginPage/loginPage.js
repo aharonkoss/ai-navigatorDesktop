@@ -1,7 +1,7 @@
 import { LightningElement, track } from 'lwc';
 
 export default class LoginPage extends LightningElement {
-  @track _inProgress=true;
+  @track _inProgress=false;
   handleLogin(event) {
     event.preventDefault();
     const username = this.template.querySelector('#username').value;
