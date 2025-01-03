@@ -1,6 +1,7 @@
-import { LightningElement } from 'lwc';
+import { LightningElement, track } from 'lwc';
 
 export default class LoginPage extends LightningElement {
+  @track _inProgress=true;
   handleLogin(event) {
     event.preventDefault();
     const username = this.template.querySelector('#username').value;
@@ -10,5 +11,8 @@ export default class LoginPage extends LightningElement {
     console.log('Password:', password);
 
     // Add authentication logic here
+  }
+  get inProgress() {
+     return this._inProgress;
   }
 }

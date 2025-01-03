@@ -64,6 +64,12 @@
     max-width: 200px;
     margin-bottom: 20px;
   }
+  .spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+  }
   
   @media (max-width: 1025px) {
     .login-container {
