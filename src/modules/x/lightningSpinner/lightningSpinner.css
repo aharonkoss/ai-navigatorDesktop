@@ -6,15 +6,56 @@
     background-color: transparent; /* Optional: Background color for the spinner container */
   }
   /* Fading spinner styling */
-.fading-spinner img {
-    width: 50px;
-    height: 50px;
+  .fading-spinner {
+    /*width: 50px;*/
+    /*height: 50px;*/
     animation: fadeInOut 2s infinite;
   }
   .custom-spinner {
     width: 50px;
     height: 50px;
     animation: spin 1.5s linear infinite;
+  }
+  /* Full-page overlay for the spinner */
+.spinner-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it overlays other content */
+  }
+  @media (max-width: 1025px) {
+    .spinner-overlay {
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 70%;
+        background: rgba(255, 255, 255, 0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+  }
+  @media (max-width: 540px) {
+    .spinner-overlay {
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
   }
   
   /* Keyframes for spinning effect */
@@ -27,3 +68,14 @@
     }
   }
   /* Animation for fading effect */
+  @keyframes fadeInOut {
+    0% {
+      opacity: 0.1;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0.1;
+    }
+  }

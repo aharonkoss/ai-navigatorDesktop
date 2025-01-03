@@ -1,11 +1,5 @@
 <template>
-    <template if:true={inProgress}>
-        <div class="spinner-overlay">
-          <div class="fading-spinner">
-             <x-lightning-spinner alternative-text="Loading" size="medium"></x-lightning-spinner>
-          </div>
-        </div>
-    </template>
+             <x-lightning-spinner alternative-text="Loading" size="medium"  if:true={inProgress}></x-lightning-spinner>
     <div class="login-container">
       <div class="login-card">
         <img src="/images/logo-filled.png" alt="AI Navigator Logo" class="login-logo" />
