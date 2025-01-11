@@ -1,4 +1,6 @@
 import { LightningElement, track } from 'lwc';
+import { getLoginInfo } from '../../../utilities/apiService/loginInfo';
+
 export default class OrnatePanel extends LightningElement {
     @track isLeftPanelOpen=true;
     @track isChecked=false;
@@ -41,6 +43,17 @@ export default class OrnatePanel extends LightningElement {
     @track hotTopicsCss='accordion-content';
     @track generateDraftCss='accordion-content';
     @track discoveryCallPlanCss='accordion-content';
+    async connectedCallback() {
+        try {
+           const vloginInfo=getLoginInfo();
+           console.log(`connectedCallback() vloginInfo: ${JSON.stringify(vloginInfo)}`);
+           if(vloginInfo.authenticated===false) {
+              window.location.href = '/#/login';
+           } 
+        } catch(error) {
+          alert(`Landing Page connectedCallback Error: ${error.message}`);
+        }
+      }
     handleHotTopicsClick(event) {
         console.log('Hot Topics Click Function!');
         // Add your logic here

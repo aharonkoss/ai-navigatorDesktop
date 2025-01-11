@@ -19,7 +19,15 @@
             </div>
         </div>
         <!-- Action Section -->
-        <div class="slds-col slds-no-flex slds-grid slds-align-right">&nbsp;</div>
+        <div class="slds-col slds-no-flex slds-grid slds-align-right">
+                    <x-lightning-combobox
+                        label=""
+                        placeholder="Default"
+                        options={userDrpDwn}
+                        default-value="userName"
+                        onchange={handleUserLoginChange}
+                    ></x-lightning-combobox>
+        </div>
     </div>
 </div>
 </template>

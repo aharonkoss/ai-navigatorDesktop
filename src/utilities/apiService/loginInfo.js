@@ -34,7 +34,14 @@ export function setLoginInfo(loginObject) {
             return false;
          }
 }
-
+export function logOutAction() {
+    try {
+      localStorage.removeItem('ainavuser');
+      
+    } catch(error) {
+      console.log(`logOutAction() error is ${error.message}`);
+    }
+}
 function encode(data) {
     return btoa(data); // Use btoa to encode the data
   }

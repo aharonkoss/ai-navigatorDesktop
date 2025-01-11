@@ -1,11 +1,23 @@
 import { LightningElement, track } from 'lwc';
 import { fetchPost } from '../../../utilities/apiService/apiService';
+import { getLoginInfo, setLoginInfo } from '../../../utilities/apiService/loginInfo';
 
 export default class LoginPage extends LightningElement {
   @track _inProgress=false;
   @track _userName;
   @track _password;
   @track _loginMessage;
+  async connectedCallback() {
+    try {
+       const vloginInfo=getLoginInfo();
+       console.log(`connectedCallback() vloginInfo: ${JSON.stringify(vloginInfo)}`);
+       if(vloginInfo.authenticated===true) {
+          window.location.href = '/#/';
+       } 
+    } catch(error) {
+      alert(`Login Page connectedCallback Error: ${error.message}`);
+    }
+  }
   handleUserNameChange(event) {
     this._userName=event.target.value;
     console.log('Username:', this._userName);
@@ -20,9 +32,12 @@ export default class LoginPage extends LightningElement {
         var response={};
         this._inProgress=true;
         try {
-            response= await fetchPost('aiNavigatorAuth', loginReq);
+            response= await fetchPost('openAINavigatorAuth', loginReq);
             if(response.success) {
-              this._loginMessage=`handleLogin response is true. message is: ${response.message}`;
+              console.log(`handleLogin response is true. message is: ${response.message}`);
+              const bllogin=setLoginInfo(response);
+              console.log(`handleLogin bllogin = ${bllogin}`);
+              window.location.href = '/#/';
             } else {
               this._loginMessage=`handleLogin response is false. message is: ${response.message}`;
             }
