@@ -1,0 +1,78 @@
+/* Base Styles */
+.slds-form-element {
+    margin-bottom: 1rem;
+}
+
+.slds-form-element__legend {
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    display: block;
+    color: #080707;
+}
+
+.slds-form-element__control {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem; /* Adds spacing between radio buttons */
+}
+
+/* Radio Button Styles */
+.slds-radio_button-group {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.slds-radio_button {
+    display: inline-flex;
+    position: relative;
+}
+
+.slds-radio_button input[type="radio"] {
+    opacity: 0;
+    position: absolute;
+    width: 0;
+    height: 0;
+    z-index: -1; /* Visually hidden but accessible */
+}
+
+.slds-radio_button__label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 400;
+    border: 1px solid #d8dde6;
+    border-radius: 0.25rem;
+    background-color: #ffffff;
+    color: #080707;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.slds-radio_button input[type="radio"]:checked + .slds-radio_button__label {
+    background-color: #0070d2; /* Salesforce blue for selected */
+    color: #ffffff;
+    border-color: #005fb2;
+}
+
+.slds-radio_button input[type="radio"]:hover + .slds-radio_button__label {
+    background-color: #f4f6f9; /* Light hover effect */
+}
+.slds-form-element__legend {
+    display: flex;
+    align-items: center; /* Vertically aligns the icon and text */
+    gap: 0.5rem; /* Adds space between the icon and the text */
+}
+
+.slds-icon_container {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1rem; /* Adjust icon size */
+    height: 1rem;
+}
+
+.slds-icon {
+    fill: currentColor; /* Inherits text color */
+}

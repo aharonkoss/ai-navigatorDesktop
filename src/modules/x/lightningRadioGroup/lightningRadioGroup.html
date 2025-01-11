@@ -1,0 +1,36 @@
+<template>
+    <fieldset class="slds-form-element">
+        <!-- Label -->
+                <!-- Legend with Icon -->
+                <legend class="slds-form-element__legend slds-form-element__label">
+                    <span class="slds-icon_container slds-icon-standard-choice" title="Choice">
+                        <svg class="slds-icon slds-icon_x-small" aria-hidden="true">
+                            <use xlink:href={iconurl}></use>
+                        </svg>
+                    </span>
+                    <span>{label}</span>
+                </legend>
+
+        <!-- Radio Group -->
+        <div class="slds-form-element__control">
+            <div class="slds-radio_button-group">
+                 <template for:each={options} for:item="option">
+                    <span key={option.value} class="slds-button slds-radio_button">
+                        <input
+                            type="radio"
+                            id={option.value}
+                            name={name}
+                            value={option.value}
+                            onchange={handleChange}
+                            checked={option.isChecked}
+                            class="slds-assistive-text"
+                        />
+                        <label class="slds-radio_button__label" for={option.value}>
+                            <span class="slds-radio_faux">{option.label}</span>
+                        </label>
+                    </span>
+                </template>
+            </div>
+        </div>
+    </fieldset>
+</template>

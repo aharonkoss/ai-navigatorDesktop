@@ -1,0 +1,17 @@
+.custom-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem; /* Small size: Adjust for desired dimensions */
+    height: 2rem; /* Small size: Matches width */
+    background-color: #f4f6f9; /* Optional: Add a background color */
+    border-radius: 50%; /* Makes the icon circular */
+    overflow: hidden;
+}
+
+.custom-icon svg {
+    width: 1.5rem; /* Scale the SVG to fit */
+    height: 1.5rem;
+    fill: currentColor; /* Inherit text color */
+    color: #0070d2; /* Default Salesforce blue color */
+}

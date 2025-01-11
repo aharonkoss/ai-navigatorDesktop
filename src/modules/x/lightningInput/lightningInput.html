@@ -1,0 +1,38 @@
+<template>
+    <div class="slds-form-element">
+        <!-- Label -->
+        <label class="slds-form-element__label" for={uniqueId}>
+            {label}
+        </label>
+
+        <!-- Input Field -->
+        <div class="slds-form-element__control">
+            <template if:true={isTextType}>
+                <!-- Textbox -->
+                <input
+                    type="text"
+                    id={uniqueId}
+                    class="slds-input"
+                    placeholder={placeholder}
+                    value={value}
+                    onchange={handleChange}
+                />
+            </template>
+            <template if:true={isCheckboxType}>
+                <!-- Checkbox -->
+                <input
+                    type="checkbox"
+                    id={uniqueId}
+                    class={cssClass}
+                    checked={checked}
+                    onchange={handleChange}
+                />
+            </template>
+        </div>
+
+        <!-- Error Message -->
+        <div class="slds-form-element__help" if:true={error}>
+            {error}
+        </div>
+    </div>
+</template>

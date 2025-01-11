@@ -1,0 +1,160 @@
+<template>
+    <x-page-header></x-page-header>
+    <div class="setupcontent">
+        <div class="oneAlohaPage">
+            <div class="ornate-panel-container" style="height: 100%;">
+                <div class="integrated-panel slds-grid slds-wrap">
+                    <div class="main-content slds-size_9-of-12">
+                        <div if:true={isLeftPanelOpen} class={leftPanelClass}>
+                            <div if:true={showHotTopics}>
+                                <div class="accordion-item accordion-size">
+                                    <div class="panel-header" onclick={handleHotTopicsCssClick}>
+                                        Recommended Hot Topics
+                                    </div>
+                                    <div class={hotTopicsCss}>
+                                        <div class="hot-topics" data-id="hot-topics">
+                                            <a href="#" onclick={handleHotTopicsClick}>Hot Topics</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-header" onclick={handleGenerateDraftCssClick}>
+                                    Generate Draft
+                                </div>
+                                <div class={generateDraftCss}>
+                                    <div class="hot-topics" data-id="draft">
+                                        <a href="#" onclick={handleGenerateDraft}>Generate</a>
+                                    </div>
+                                </div>
+                                <div class="panel-header" onclick={handleDiscoveryCallPlanCssClick}>
+                                    Discovery Call Plan
+                                </div>
+                                <div class={discoveryCallPlanCss}>
+                                    <div class="hot-topics" data-id="draft">
+                                         &nbsp;
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div if:true={isChatPanelOpen} class={chatPanelClass}>
+                            <div class="chat-content">
+                                <div class="chat-body">
+                                    <div class="chat-messages">
+                                            <span for:each={messages} for:item="message" key={message.id} class="slds-grid" style="margin-bottom: 1rem;">
+                                                <div if:true={message.withIcon}>
+                                                        <x-lightning-icon iconurl="/icons/standard-sprite/svg/symbols.svg#story"></x-lightning-icon>
+                                                </div>
+                                                <div class={message.messageClass}>
+                                                    <div class={message.senderClass}>{message.senderDetail}</div>
+                                                    <div if:true={message.isFormatted}>
+                                                        <div class="formatted-message" data-id={message.id}></div>
+                                                    </div>
+                                                    <div if:false={message.isFormatted}>
+                                                        <div>{message.text}</div>
+                                                    </div>
+                                                </div>
+                                            </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="chat-input-container" style="align-items: center;">
+                                <textarea class="message-input" style="padding-right: 45px;" placeholder="Type your message..." onkeyup={handleKeyUp}></textarea>
+                                <!--
+                                <lightning-icon icon-name="utility:send" style="cursor:pointer;position: absolute;margin-left: -34px;right: 20px;" onclick={sendMessage}></lightning-icon>
+                                -->
+                                <div class="custom-icon-container ">
+                                   <x-lightning-icon iconurl="/icons/utility-sprite/svg/symbols.svg#send"></x-lightning-icon>
+                                </div>
+                                <!-- <button class="generate-draft-button" onclick={handleGenerateDraft}>Generate Draft</button> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="category-panel slds-size_3-of-12">
+                        <!--
+                        <c-client-connect-strategy
+                            onselectionchange={handleClientConnectStrategyChange}
+                        ></c-client-connect-strategy>
+                        -->
+                        <div class="panel-header" onclick={handleClientConnectionCssClick}>
+                            Client Connection Strategy
+                        </div>
+                        <div class={clientConnectionCss}>
+                            <div class="hot-topics">
+                                <x-lightning-combobox
+                                label="Conversation Style"
+                                placeholder="Default"
+                                options={conversationOptions}
+                                default-value="default"
+                                onchange={handleConversationStyleChange}
+                                ></x-lightning-combobox>
+                                <x-lightning-combobox
+                                    label="Client Type"
+                                    placeholder="Default"
+                                    options={clientTypeOptions}
+                                    default-value="default"
+                                    onchange={handleClientTypeChange}
+                                  ></x-lightning-combobox>
+                                  <div style="border-top: 0.15rem solid #708090;width: 100%;position:absolute;left:0px;margin-bottom:5px;">&nbsp;</div>
+                                  <div style="padding-top:30px;">
+                                    <x-lightning-radio-group
+                                            label="Role Play Mode"
+                                            name="rolePlayGroup"
+                                            options={radioOptions}
+                                            value={selectedValue}
+                                            iconurl="/icons/utility-sprite/svg/symbols.svg#settings"
+                                            onchange={handleRadioChange}
+                                    ></x-lightning-radio-group>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-header" onclick={handleCategoriesCssClick}>Categories</div>
+                        <ul class={categoriesCss}>
+                            <div for:each={categoriesWithClasses} for:item="category" key={category.id}>
+                                <li class={category.itemClass}>
+                                    <div class={category.iconClass}>
+                                        <!--
+                                         <lightning-icon icon-name="standard:category" style="background-color: #afc4de;"></lightning-icon>
+                                        -->
+                                        <x-lightning-icon iconurl="/icons/standard-sprite/svg/symbols.svg#category"></x-lightning-icon>
+                                    </div>
+                                    <span class="category-text" data-id={category.id} onclick={handleCategoryClick}>{category.name}</span>
+                                    <!--
+                                    <lightning-input if:true={category.checkbox} checked={category.checked} type="checkbox" style="position: absolute;right:0;" data-id={category.id} onchange={handleCheckbox}></lightning-input>
+                                    -->
+                                    <span style="text-align:right;width:30%;">
+                                        <x-lightning-input
+                                            label=""
+                                            type="checkbox"
+                                            checked={category.checked}
+                                            onchange={handleCheckbox}
+                                            cssclass="slds-checkbox absolute-right"
+                                    ></x-lightning-input>
+                                   </span>
+                                </li>
+                               
+                            </div>
+                        <div class="slds-p-top_medium slds-p-bottom_medium slds-p-right_small" style="text-align: right;">
+                            <!--
+                            <lightning-button label="New Meeting" variant="neutral" onclick={handleNewMeeting}></lightning-button>
+                            --> <x-lightning-button
+                                                label="New Meeting"
+                                                variant="neutral"
+                                                cssclass=""
+                                                onclick={handleNewMeeting}
+                                            ></x-lightning-button>&nbsp;&nbsp;
+                                            <x-lightning-button
+                                                label="Print Call Plan"
+                                                variant="brand"
+                                                cssclass="print-call-plan"
+                                                onclick={handlePrintCallPlan}
+                                            ></x-lightning-button>
+                            <!--
+                            <lightning-button label="Print Call Plan" class="print-call-plan" variant="brand" disabled={isPrintCallPlanDisable} onclick={handlePrintCallPlan}></lightning-button>
+                            -->
+                        </div>
+                    </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </template>

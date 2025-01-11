@@ -1,0 +1,48 @@
+/* Base SLDS Button Styles */
+.slds-button {
+    display: inline-block;
+    font-family: "Salesforce Sans", Arial, sans-serif;
+    font-size: 0.875rem;
+    font-weight: 400;
+    padding: 0.5rem 1rem;
+    border: 1px solid #d8dde6;
+    border-radius: 0.25rem;
+    background-color: #f4f6f9;
+    color: #080707;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s ease-in-out;
+}
+
+.slds-button:hover {
+    background-color: #e3e5e8;
+    border-color: #c8ccd1;
+}
+
+.slds-button_neutral {
+    background-color: #ffffff;
+    border-color: #d8dde6;
+    color: #080707;
+}
+
+.slds-button:hover.slds-button_neutral {
+    background-color: #f4f6f9;
+}
+
+/* Custom Variant Examples */
+.slds-button_brand {
+    background-color: #0070d2;
+    color: #ffffff;
+    border-color: transparent;
+}
+
+.slds-button:hover.slds-button_brand {
+    background-color: #005fb2;
+}
+
+/* Custom Classes */
+.abs-right {
+    position: absolute;
+    right: 0;
+}
+

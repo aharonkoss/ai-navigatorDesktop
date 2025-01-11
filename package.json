@@ -10,9 +10,12 @@
     },
     "devDependencies": {
         "@lwc/rollup-plugin": "8.12.0",
+        "@rollup/plugin-commonjs": "^28.0.2",
+        "@rollup/plugin-node-resolve": "^16.0.0",
         "@rollup/plugin-replace": "^6.0.1",
         "lwc": "8.12.0",
         "rollup": "^4.28.1",
+        "rollup-plugin-copy": "^3.5.0",
         "rollup-plugin-livereload": "^2.0.5",
         "rollup-plugin-serve": "^3.0.0"
     },
@@ -26,6 +29,7 @@
         }
     },
     "dependencies": {
-        "@salesforce-ux/design-system": "^2.25.6"
+        "@salesforce-ux/design-system": "^2.25.6",
+        "navigo": "^8.11.1"
     }
 }

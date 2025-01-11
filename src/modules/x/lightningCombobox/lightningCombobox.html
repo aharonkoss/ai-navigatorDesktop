@@ -1,0 +1,65 @@
+<template>
+    <div class="slds-form-element">
+        <!-- Label -->
+        <label class="slds-form-element__label" for="combobox-id">{label}</label>
+
+        <!-- Combobox -->
+        <div class="slds-combobox_container">
+            <div
+                class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click slds-is-open"
+                role="combobox"
+                aria-expanded={isDropdownOpen}
+                aria-haspopup="listbox"
+                aria-owns="listbox-id"
+            >
+                <div class="slds-combobox__form-element" role="none">
+                    <input
+                        type="text"
+                        class="slds-input slds-combobox__input"
+                        id="combobox-id"
+                        placeholder={placeholder}
+                        aria-controls="listbox-id"
+                        aria-autocomplete="list"
+                        aria-activedescendant={activeDescendant}
+                        value={searchTerm}
+                        oninput={handleInput}
+                        onclick={toggleDropdown}
+                    />
+                    <button
+                        class="slds-button slds-button_icon slds-input__icon slds-input__icon_right"
+                        title="Show options"
+                        onclick={toggleDropdown}
+                    >
+                        <svg class="slds-button__icon" aria-hidden="true">
+                            <use xlink:href="/icons/utility-sprite/svg/symbols.svg#down"></use>
+                        </svg>
+                    </button>
+                </div>
+                <div if:true={isDropdownOpen} class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid">
+                    <ul
+                        id="listbox-id"
+                        class="slds-listbox slds-listbox_vertical"
+                        role="listbox"
+                    >
+                        <template for:each={options} for:item="option">
+                            <li
+                                key={option.value}
+                                class="slds-listbox__item"
+                                role="presentation"
+                            >
+                                <span
+                                    class="slds-listbox__option slds-listbox__option_plain slds-media slds-media_small slds-media_center"
+                                    role="option"
+                                    data-value={option.value}
+                                    onclick={handleSelect}
+                                >
+                                    <span class="slds-media__body">{option.label}</span>
+                                </span>
+                            </li>
+                        </template>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
