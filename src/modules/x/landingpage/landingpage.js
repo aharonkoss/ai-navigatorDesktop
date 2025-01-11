@@ -1,4 +1,6 @@
 import { LightningElement, track } from 'lwc';
+import { getLoginInfo } from '../../../utilities/apiService/loginInfo';
+
 export default class LandingPage extends LightningElement {
    logoUrl = '/images/bank_logo.png'; // URL for the company logo
    @track aryFunctionList=[
@@ -10,7 +12,17 @@ export default class LandingPage extends LightningElement {
           {id: 6, name: 'Call Plan', imgUrl: '/icons/utility-sprite/svg/symbols.svg#setup_assistant_guide'},
           {id: 7, name: 'Key Account Plans', imgUrl: '/icons/utility-sprite/svg/symbols.svg#key_dates'},
    ];
-
+   async connectedCallback() {
+      try {
+         const vloginInfo=getLoginInfo();
+         console.log(`connectedCallback() vloginInfo: ${JSON.stringify(vloginInfo)}`);
+         if(vloginInfo.authenticated===false) {
+            window.location.href = '/#/login';
+         } 
+      } catch(error) {
+        alert(`Landing Page connectedCallback Error: ${error.message}`);
+      }
+    }
    goToMain(event) {
       window.location='/#/main'
   }
