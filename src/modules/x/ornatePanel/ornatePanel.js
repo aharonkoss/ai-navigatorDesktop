@@ -43,6 +43,10 @@ export default class OrnatePanel extends LightningElement {
     @track hotTopicsCss='accordion-content';
     @track generateDraftCss='accordion-content';
     @track discoveryCallPlanCss='accordion-content';
+    getAPILatestMeetingPreparation='https://assistantcom3-dev-ed.develop.my.salesforce.com/services/apexrest/getAPILatestMeetingPreparation?meetingId=a00ak00000cEP2HAAW';
+    apiInitializeConversation='https://assistantcom3-dev-ed.develop.my.salesforce.com/services/apexrest/apiInitializeConversation';
+    apiGenerateAndSaveDraft='https://assistantcom3-dev-ed.develop.my.salesforce.com/services/apexrest/apiGenerateAndSaveDraft';
+    
     async connectedCallback() {
         try {
            const vloginInfo=getLoginInfo();

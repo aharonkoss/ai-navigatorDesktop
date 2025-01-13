@@ -51,13 +51,15 @@
 }
 
 .slds-radio_button input[type="radio"]:checked + .slds-radio_button__label {
-    background-color: #0070d2; /* Salesforce blue for selected */
-    color: #ffffff;
-    border-color: #005fb2;
+    /*background-color: #0070d2;  Salesforce blue for selected */
+    background-color: #39d353;
+    color: #000;
+    /*border-color: #005fb2;*/
+    border-color: #000;
 }
 
 .slds-radio_button input[type="radio"]:hover + .slds-radio_button__label {
-    background-color: #f4f6f9; /* Light hover effect */
+    background-color: #39d353; /* Light hover effect */
 }
 .slds-form-element__legend {
     display: flex;
