@@ -32,7 +32,7 @@ export default class LoginPage extends LightningElement {
         var response={};
         this._inProgress=true;
         try {
-            response= await fetchPost('openAINavigatorAuth', loginReq);
+            response=await fetchPost('openAINavigatorAuth', loginReq);
             if(response.success) {
               console.log(`handleLogin response is true. message is: ${response.message}`);
               const bllogin=setLoginInfo(response);
