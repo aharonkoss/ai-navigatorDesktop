@@ -35,7 +35,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div if:true={isChatPanelOpen} class={chatPanelClass}>
+                        <div if:true={isChatPanelActive}>
                             <div class="chat-content">
                                 <div class="chat-body">
                                     <div class="chat-messages">
@@ -56,7 +56,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="chat-input-container" style="align-items: center;">
+                            <div class="chat-input-container" style="align-items: center;" if:true={isChatPanelActive}>
                                 <textarea class="message-input" style="padding-right: 45px;" placeholder="Type your message..." onkeyup={handleKeyUp}></textarea>
                                 <!--
                                 <lightning-icon icon-name="utility:send" style="cursor:pointer;position: absolute;margin-left: -34px;right: 20px;" onclick={sendMessage}></lightning-icon>
@@ -67,7 +67,20 @@
                                 <!-- <button class="generate-draft-button" onclick={handleGenerateDraft}>Generate Draft</button> -->
                             </div>
                         </div>
-                    </div>
+                        <div style="width: 80%;" if:true={isSalespersonInputsActive}>
+                            <div class="accordion-header">
+                                Salesperson Inputs
+                            </div>
+                            <div class="accordion-content">
+                                <x-salesperson-inputs
+                                    meetingid={meetingPreparationId}
+                                    onformsubmitted={handleSalespersonFormSubmitted}
+                                    onformerror={handleSalespersonFormError}
+                                    data-id="salespersonInputs"
+                                 ></x-salesperson-inputs>
+                            </div>
+                        </div>
+                        </div>
                     <div class="category-panel slds-size_3-of-12">
                         <!--
                         <c-client-connect-strategy
