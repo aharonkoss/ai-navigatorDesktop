@@ -20,6 +20,7 @@ export default class SalespersonInputs extends LightningElement {
     @track _inProgress=false;
     @api meetingid;
     getEndPoint='https://assistantcom3-dev-ed.develop.my.salesforce.com/services/apexrest/getAPILatestMeetingPreparation?meetingId={meetingId}';
+    postEndPoint='https://assistantcom3-dev-ed.develop.my.salesforce.com/services/apexrest/apiCreateMeetingPreparation';
 
     async connectedCallback(){
         var result={};
@@ -70,13 +71,14 @@ export default class SalespersonInputs extends LightningElement {
     }
 
     async handleSubmit(event) {
+        this._inProgress=true;
         event.preventDefault();
-        
         console.log('Submitting form data:', JSON.stringify(this.formData));
     
         try {
-            const result = await createMeetingPreparation({ formData: this.formData });
-            this.formData['meetingId'] = result;
+
+            const result = await fetchPostAzure({url: postEndPoint, body: this.formData});
+            this.formData['meetingId'] = result.meetingPreparationId;
             console.log('Meeting Preparation record created with Id:', result);
             this.showThankYouMessage = true;
             console.log('Thank you message should be shown now');
@@ -91,6 +93,7 @@ export default class SalespersonInputs extends LightningElement {
             console.error('Error in submit process:', error);
             this.dispatchEvent(new CustomEvent('formerror', { detail: error }));
         }
+        this._inProgress=false;
     }
 
     resetForm() {
