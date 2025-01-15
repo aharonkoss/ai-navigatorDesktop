@@ -13,7 +13,7 @@
 
 /* Accordion Styles */
 .accordion-item {
-    border-bottom: 1px solid var(--slate-blue);
+    border-bottom: 1px solid #ffffff;
 }
 
 .accordion-header {

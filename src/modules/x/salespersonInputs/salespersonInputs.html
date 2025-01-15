@@ -5,6 +5,7 @@
             <h2>Thanks for providing Meeting details</h2>
         </div>
     </template>
+    <x-lightning-spinner alternative-text="Loading" size="medium"  if:true={inProgress}></x-lightning-spinner>
     <div class="accordion-item">
         <div class="accordion-content">
             <div class="salesperson-inputs" data-id="salesperson-inputs">

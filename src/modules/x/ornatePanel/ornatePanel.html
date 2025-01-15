@@ -67,18 +67,16 @@
                                 <!-- <button class="generate-draft-button" onclick={handleGenerateDraft}>Generate Draft</button> -->
                             </div>
                         </div>
-                        <div style="width: 80%;" if:true={isSalespersonInputsActive}>
-                            <div class="accordion-header">
+                        <div style="width:80%;margin-left:13px;margin-right:-3px;" if:true={isSalespersonInputsActive}>
+                            <div class="accordion-header" style="font-size:22px;">
                                 Salesperson Inputs
                             </div>
-                            <div class="accordion-content">
                                 <x-salesperson-inputs
                                     meetingid={meetingPreparationId}
                                     onformsubmitted={handleSalespersonFormSubmitted}
                                     onformerror={handleSalespersonFormError}
                                     data-id="salespersonInputs"
                                  ></x-salesperson-inputs>
-                            </div>
                         </div>
                         </div>
                     <div class="category-panel slds-size_3-of-12">

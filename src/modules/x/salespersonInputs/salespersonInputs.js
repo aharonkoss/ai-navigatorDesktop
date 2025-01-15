@@ -1,6 +1,5 @@
 import { LightningElement, api, track } from 'lwc';
-//import createMeetingPreparation from '@salesforce/apex/OrnatePanelController.createMeetingPreparation';
-//import getMeetingPreparation from '@salesforce/apex/OrnatePanelController.getMeetingPreparation';
+import { fetchPostAzure, fetchGetAzure } from '../../../utilities/apiService/apiService';
 
 export default class SalespersonInputs extends LightningElement {
     @track formData = {
@@ -16,41 +15,55 @@ export default class SalespersonInputs extends LightningElement {
         additionalNotes: ''
     };
     @track showThankYouMessage = false;
+    @track _inProgress=false;
     @api meetingid;
+    getEndPoint='https://assistantcom3-dev-ed.develop.my.salesforce.com/services/apexrest/getAPILatestMeetingPreparation?meetingId={meetingId}'; //a00ak00000cSTfVAAW
+    postEndPoint='https://assistantcom3-dev-ed.develop.my.salesforce.com/services/apexrest/apiCreateMeetingPreparation';
 
-    connectedCallback(){
-
-        console.log('this.meetingid - ', this.meetingid);
+    async connectedCallback(){
+        var result={};
+        this._inProgress=true;
+        try {
+        console.log('Sales Person Input connectedCallback: this.meetingid - ', this.meetingid);
         if(this.meetingid && this.meetingid.length > 0){
-            getMeetingPreparation({ 
-                meetingId: this.meetingid 
-            }).then(result => {
-                console.log(result);
+            const newUrl=this.getEndPoint.replace('{meetingId}', this.meetingid );
+            const request={url: newUrl};
+            const strResult=await fetchGetAzure(request);
+            result=JSON.parse(strResult);
+            if(result.success==true) {
                 let frmData = {};
-                frmData.meetingId = result.Id;
-                frmData.meetingDate = result.Meeting_Date__c,
-                frmData.meetingLocation = result.Meeting_Location__c ? result.Meeting_Location__c : '',
-                frmData.clientName = result.Client__c ? result.Client__c : '',
-                frmData.contactName = result.Client_Contact__c ? result.Client_Contact__c : '',
-                frmData.isNewClient = result.Is_New_Client__c,
-                frmData.minGoal = result.Minimum_Goal__c ? result.Minimum_Goal__c : '',
-                frmData.maxGoal = result.Maximum_Goal__c ? result.Maximum_Goal__c : '',
-                frmData.valueAddedCallPurpose = result.Value_Added_Call_Purpose__c ? result.Value_Added_Call_Purpose__c : '',
-                frmData.additionalNotes = result.Additional_Notes__c ? result.Additional_Notes__c : ''
-
+                frmData.meetingId = result.data.Id;
+                frmData.meetingDate = result.data[0].Meeting_Date__c,
+                frmData.meetingLocation = result.data[0].Meeting_Location__c ? result.data[0].Meeting_Location__c : '',
+                frmData.clientName = result.data[0].Client__c ? result.data[0].Client__c : '',
+                frmData.contactName = result.data[0].Client_Contact__c ? result.data[0].Client_Contact__c : '',
+                frmData.isNewClient = result.data[0].Is_New_Client__c,
+                frmData.minGoal = result.data[0].Minimum_Goal__c ? result.data[0].Minimum_Goal__c : '',
+                frmData.maxGoal = result.data[0].Maximum_Goal__c ? result.data[0].Maximum_Goal__c : '',
+                frmData.valueAddedCallPurpose = result.data[0].Value_Added_Call_Purpose__c ? result.data[0].Value_Added_Call_Purpose__c : '',
+                frmData.additionalNotes = result.data[0].Additional_Notes__c ? result.data[0].Additional_Notes__c : ''
                 this.formData = {...frmData};
                 console.log(JSON.stringify(this.formData));
-            })
-            .catch(error => {
-                console.error(error);
-            })
+            } else {
+                alert(`sales person input connectedCallback result success is false.`);
+            }
+        } else {
+            console.log(`sales person input connectedCallback meeting id is blank.`);
         }
+            
+        } catch(error) {
+             alert(`sales person input connectedCallback error ${error.message}`);
+        }
+        this._inProgress=false;
     }
 
     @api
     initialize() {
-        alert(`api initialize() starting.....`)
-        this.resetForm();
+        if(this.meetingid && this.meetingid.length > 0){
+            console.log(`sales person input meeting is ${this.meetingid}`);
+        } else {
+            this.resetForm();
+        }
     }
 
     handleInputChange(event) {
@@ -60,27 +73,34 @@ export default class SalespersonInputs extends LightningElement {
     }
 
     async handleSubmit(event) {
+        this._inProgress=true;
         event.preventDefault();
-        
-        console.log('Submitting form data:', JSON.stringify(this.formData));
+        console.log('Sales Person Input...Submitting form data:', JSON.stringify(this.formData));
     
         try {
-            const result = await createMeetingPreparation({ formData: this.formData });
-            this.formData['meetingId'] = result;
-            console.log('Meeting Preparation record created with Id:', result);
-            this.showThankYouMessage = true;
-            console.log('Thank you message should be shown now');
-            this.dispatchEvent(new CustomEvent('formsubmitted', { detail: result }));
+
+            const result = await fetchPostAzure({url: this.postEndPoint, body: this.formData});  
+            if(result.success==true) {
+                alert(`Sales Person Input success = true\n${JSON.stringify(result)}`);
+                this.formData['meetingId'] = result.meetingPreparationId;
+                console.log('Meeting Preparation record created with Id:', result.meetingPreparationId);
+                this.showThankYouMessage = true;
+                console.log('Thank you message should be shown now');
+                this.dispatchEvent(new CustomEvent('formsubmitted', { detail: result.meetingPreparationId }));
+            } else {
+                alert(`Sales Person Input success = false\n${JSON.stringify(result)}`);
+            }
             
-            // Set a timer to clear the message and reset the form after 3 seconds
+            /* Set a timer to clear the message and reset the form after 3 seconds
             setTimeout(() => {
                 this.showThankYouMessage = false;
                 this.resetForm();
-            }, 3000);
+            }, 3000);*/
         } catch (error) {
-            console.error('Error in submit process:', error);
+            console.log(`Sales Person Input handleSubmit: Error in submit process: ${error.message}`);
             this.dispatchEvent(new CustomEvent('formerror', { detail: error }));
         }
+        this._inProgress=false;
     }
 
     resetForm() {
@@ -106,9 +126,11 @@ export default class SalespersonInputs extends LightningElement {
         });
       
     }
-
     @api
     clearForm() {
         this.resetForm();
+    }
+    get inProgress() {
+        return this._inProgress;
     }
 }

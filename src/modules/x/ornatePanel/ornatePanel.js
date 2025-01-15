@@ -43,7 +43,7 @@ export default class OrnatePanel extends LightningElement {
     @track generateDraftCss='accordion-content';
     @track discoveryCallPlanCss='accordion-content';
     @api salespersonInputs; // Reference to child component
-    meetingPreparationId;
+    meetingPreparationId='a00ak00000cSZxpAAG';
     getAPILatestMeetingPreparation='https://assistantcom3-dev-ed.develop.my.salesforce.com/services/apexrest/getAPILatestMeetingPreparation?meetingId=a00ak00000cEP2HAAW';
     apiInitializeConversation='https://assistantcom3-dev-ed.develop.my.salesforce.com/services/apexrest/apiInitializeConversation';
     apiGenerateAndSaveDraft='https://assistantcom3-dev-ed.develop.my.salesforce.com/services/apexrest/apiGenerateAndSaveDraft';
@@ -55,7 +55,7 @@ export default class OrnatePanel extends LightningElement {
            if(vloginInfo.authenticated===false) {
               window.location.href = '/#/login';
            } else {
-            this.meetingPreparationId = '';
+            this.meetingPreparationId = 'a00ak00000cSZxpAAG';
            }
         } catch(error) {
           alert(`Landing Page connectedCallback Error: ${error.message}`);
@@ -130,7 +130,7 @@ export default class OrnatePanel extends LightningElement {
     }
     handleSalespersonFormSubmitted(event) {
         this.meetingPreparationId = event.detail;
-        console.log(this.meetingPreparationId);
+        console.log(`Ornate Panel handleSalespersonFormSubmitted this.meetingPreparationId = ${this.meetingPreparationId}`);
         const categoryIndex = this.categories.findIndex(category => category.id === 'salesperson-inputs');
         if (categoryIndex !== -1) {
             this.categories[categoryIndex].completed = true;
@@ -222,7 +222,7 @@ export default class OrnatePanel extends LightningElement {
     }
     handleOpenSalespersonInputs() {
         try {
-            alert(`handleOpenSalespersonInputs activeCategoryId ${this.activeCategoryId}`);
+            //alert(`handleOpenSalespersonInputs activeCategoryId ${this.activeCategoryId}`);
             const salespersonInputs = this.template.querySelector('[data-id="salespersonInputs"]');
             if (salespersonInputs) { // Reference to child component) {
                 salespersonInputs.initialize();
