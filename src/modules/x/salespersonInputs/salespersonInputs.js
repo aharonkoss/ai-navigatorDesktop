@@ -1,7 +1,7 @@
 import { LightningElement, api, track } from 'lwc';
 import { fetchPostAzure, fetchGetAzure } from '../../../utilities/apiService/apiService';
 //import createMeetingPreparation from '@salesforce/apex/OrnatePanelController.createMeetingPreparation';
-//import getMeetingPreparation from '@salesforce/apex/OrnatePanelController.getMeetingPreparation';
+//import getMeetingPreparation from '@salesforce/apex/OrnatePanelController.getMeetingPreparation';//new commit
 
 export default class SalespersonInputs extends LightningElement {
     @track formData = {
