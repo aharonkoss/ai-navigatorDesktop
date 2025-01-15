@@ -65,11 +65,11 @@
 .left-panel.open {
     transform: translateX(0);
 }
-
+/*
 .left-panel.wide {
-    width: 100%; /* Adjust to cover the entire chat panel */
+     width: 100%; Adjust to cover the entire chat panel 
 }
-
+*/
 /* Accordion Styles */
 .accordion-item {
     border-bottom: 1px solid var(--slate-blue);

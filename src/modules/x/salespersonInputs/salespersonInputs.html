@@ -1,0 +1,61 @@
+<template>
+    <template if:true={showThankYouMessage}>
+        <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_success" role="alert">
+            <span class="slds-assistive-text">success</span>
+            <h2>Thanks for providing Meeting details</h2>
+        </div>
+    </template>
+    <div class="accordion-item">
+        <div class="accordion-content">
+            <div class="salesperson-inputs" data-id="salesperson-inputs">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="meetingDate">Meeting Date</label>
+                        <input type="date" value={formData.meetingDate} id="meetingDate" name="meetingDate" onchange={handleInputChange}>
+                    </div>
+                    <div class="form-group">
+                        <label for="meetingLocation">Meeting Location</label>
+                        <input type="text" value={formData.meetingLocation} id="meetingLocation" name="meetingLocation" onchange={handleInputChange}>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="clientName">Client Name</label>
+                        <input type="text" value={formData.clientName} id="clientName" name="clientName" onchange={handleInputChange}>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactName">Contact Name</label>
+                        <input type="text" value={formData.contactName} id="contactName" name="contactName" onchange={handleInputChange}>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="isNewClient">
+                        <input type="checkbox" checked={formData.isNewClient} id="isNewClient" name="isNewClient" onchange={handleInputChange}>
+                        Is New Client?
+                    </label>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="minGoal">Min Goal for Meeting</label>
+                        <input type="text" value={formData.minGoal} id="minGoal" name="minGoal" onchange={handleInputChange}>
+                    </div>
+                    <div class="form-group">
+                        <label for="maxGoal">Max Goal for Meeting</label>
+                        <input type="text" value={formData.maxGoal} id="maxGoal" name="maxGoal" onchange={handleInputChange}>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="valueAddedCallPurpose">Value-Added Call Purpose</label>
+                        <textarea id="valueAddedCallPurpose" name="valueAddedCallPurpose" onchange={handleInputChange}>{formData.valueAddedCallPurpose}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="additionalNotes">Additional Notes</label>
+                        <textarea id="additionalNotes" name="additionalNotes" onchange={handleInputChange}>{formData.additionalNotes}</textarea>
+                    </div>
+                </div>
+                <button class="submit-btn" onclick={handleSubmit}>Submit</button>
+            </div>
+        </div>
+    </div>
+</template>

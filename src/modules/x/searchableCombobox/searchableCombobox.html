@@ -1,0 +1,29 @@
+<template>
+    <div class="combobox-container">
+        <lightning-input
+            type="text"
+            placeholder="Search..."
+            value={searchTerm}
+            onchange={handleSearchChange}
+            class="search-input"
+        ></lightning-input>
+
+        <div class="options-container" if:true={showOptions}>
+            <template if:true={filteredOptions.length}>
+                <template for:each={filteredOptions} for:item="option">
+                    <div
+                        key={option.value}
+                        class="option"
+                        data-value={option.value}
+                        onclick={handleOptionSelect}
+                    >
+                        {option.label}
+                    </div>
+                </template>
+            </template>
+            <template if:false={filteredOptions.length}>
+                <div class="no-results">No results found</div>
+            </template>
+        </div>
+    </div>
+</template>
