@@ -28,7 +28,7 @@ export default class SalespersonInputs extends LightningElement {
         console.log('this.meetingid - ', this.meetingid);
         if(this.meetingid && this.meetingid.length > 0){
             const request={url: getEndPoint.replace('{meetingId}', this.meetingid )};
-            result= await fetchPostAzure(request);
+            result= await fetchGetAzure(request);
             console.log(result);
             if(result.success===true) {
                 let frmData = {};
