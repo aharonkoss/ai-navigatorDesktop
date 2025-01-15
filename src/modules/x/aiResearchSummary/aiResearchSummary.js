@@ -2,19 +2,24 @@ import { LightningElement, api, track } from 'lwc';
 import { fetchPostAzure, fetchGetAzure } from '../../../utilities/apiService/apiService';
 //import getAIResearchSummary from '@salesforce/apex/OpenAIService.getAIResearchSummary';
 //import getSavedSummary from '@salesforce/apex/OpenAIService.getSavedSummary';
-
 export default class AIResearchSummary extends LightningElement {
     @track summary = '';
     @track error = '';
     @track isLoading = false;
     @api meetingid;
-
+    getSavedSummary='https://assistantcom3-dev-ed.develop.my.salesforce.com/services/apexrest/getSavedSummary?meetingId=a00ak00000cWzLeAAK';
+    getAIResearchSummary='https://assistantcom3-dev-ed.develop.my.salesforce.com/services/apexrest/getAIResearchSummary?meetingId={meetingId}';
     async connectedCallback(){
         this.isLoading = true;
         try{
             console.log(`meetingid in research summary =>  ${this.meetingid}`);
-            const rawSummary = await getSavedSummary({meetingId : this.meetingid});
-            this.summary = this.formatSummary(rawSummary);
+            const rawSummary=await fetchGetAzure({url : this.getAIResearchSummary.replace('{meetingId}', this.meetingid)});
+            if(rawSummary.success==true) {
+                this.summary = this.formatSummary(rawSummary.data);
+            } else {
+               console.log(`aiResearchSummary connectedCallback rawSummary success is false message: ${rawSummary.message}`);
+            }
+            
         }
         finally {
             this.isLoading = false;
@@ -29,11 +34,14 @@ export default class AIResearchSummary extends LightningElement {
 
         try {
             if(this.meetingid && this.meetingid.length > 0){
-                const rawSummary = await getAIResearchSummary({meetingId : this.meetingid});
-                this.summary = this.formatSummary(rawSummary);
-                console.log('Formatted summary:', this.summary);
-            }
-            else{
+                const rawSummary = await fetchGetAzure({url : this.getSavedSummary.replace('{meetingId}', this.meetingid)});
+                if(rawSummary.success==true) {
+                    this.summary = this.formatSummary(rawSummary.data);
+                    console.log('Formatted summary:', this.summary);
+                } else {
+                    console.log(`aiResearchSummary initialize rawSummary success is false message: ${rawSummary.message}`);
+                }
+            } else{
                 this.error = 'Please enter Salesperson Input!';
             }
             
