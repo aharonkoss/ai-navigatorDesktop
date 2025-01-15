@@ -1,7 +1,5 @@
 import { LightningElement, api, track } from 'lwc';
 import { fetchPostAzure, fetchGetAzure } from '../../../utilities/apiService/apiService';
-//import createMeetingPreparation from '@salesforce/apex/OrnatePanelController.createMeetingPreparation';
-//import getMeetingPreparation from '@salesforce/apex/OrnatePanelController.getMeetingPreparation';//new commit
 
 export default class SalespersonInputs extends LightningElement {
     @track formData = {
@@ -19,19 +17,20 @@ export default class SalespersonInputs extends LightningElement {
     @track showThankYouMessage = false;
     @track _inProgress=false;
     @api meetingid;
-    getEndPoint='https://assistantcom3-dev-ed.develop.my.salesforce.com/services/apexrest/getAPILatestMeetingPreparation?meetingId={meetingId}';
+    getEndPoint='https://assistantcom3-dev-ed.develop.my.salesforce.com/services/apexrest/getAPILatestMeetingPreparation?meetingId={meetingId}'; //a00ak00000cSTfVAAW
     postEndPoint='https://assistantcom3-dev-ed.develop.my.salesforce.com/services/apexrest/apiCreateMeetingPreparation';
 
     async connectedCallback(){
         var result={};
         this._inProgress=true;
         try {
-        console.log('this.meetingid - ', this.meetingid);
+        console.log('Sales Person Input connectedCallback: this.meetingid - ', this.meetingid);
         if(this.meetingid && this.meetingid.length > 0){
-            const request={url: getEndPoint.replace('{meetingId}', this.meetingid )};
-            result= await fetchGetAzure(request);
-            console.log(result);
-            if(result.success===true) {
+            const newUrl=this.getEndPoint.replace('{meetingId}', this.meetingid );
+            const request={url: newUrl};
+            const strResult=await fetchGetAzure(request);
+            result=JSON.parse(strResult);
+            if(result.success==true) {
                 let frmData = {};
                 frmData.meetingId = result.data.Id;
                 frmData.meetingDate = result.data[0].Meeting_Date__c,
@@ -60,8 +59,11 @@ export default class SalespersonInputs extends LightningElement {
 
     @api
     initialize() {
-        alert(`api initialize() starting.....`)
-        this.resetForm();
+        if(this.meetingid && this.meetingid.length > 0){
+            console.log(`sales person input meeting is ${this.meetingid}`);
+        } else {
+            this.resetForm();
+        }
     }
 
     handleInputChange(event) {
@@ -73,24 +75,29 @@ export default class SalespersonInputs extends LightningElement {
     async handleSubmit(event) {
         this._inProgress=true;
         event.preventDefault();
-        console.log('Submitting form data:', JSON.stringify(this.formData));
+        console.log('Sales Person Input...Submitting form data:', JSON.stringify(this.formData));
     
         try {
 
-            const result = await fetchPostAzure({url: postEndPoint, body: this.formData});
-            this.formData['meetingId'] = result.meetingPreparationId;
-            console.log('Meeting Preparation record created with Id:', result);
-            this.showThankYouMessage = true;
-            console.log('Thank you message should be shown now');
-            this.dispatchEvent(new CustomEvent('formsubmitted', { detail: result }));
+            const result = await fetchPostAzure({url: this.postEndPoint, body: this.formData});  
+            if(result.success==true) {
+                alert(`Sales Person Input success = true\n${JSON.stringify(result)}`);
+                this.formData['meetingId'] = result.meetingPreparationId;
+                console.log('Meeting Preparation record created with Id:', result.meetingPreparationId);
+                this.showThankYouMessage = true;
+                console.log('Thank you message should be shown now');
+                this.dispatchEvent(new CustomEvent('formsubmitted', { detail: result.meetingPreparationId }));
+            } else {
+                alert(`Sales Person Input success = false\n${JSON.stringify(result)}`);
+            }
             
-            // Set a timer to clear the message and reset the form after 3 seconds
+            /* Set a timer to clear the message and reset the form after 3 seconds
             setTimeout(() => {
                 this.showThankYouMessage = false;
                 this.resetForm();
-            }, 3000);
+            }, 3000);*/
         } catch (error) {
-            console.error('Error in submit process:', error);
+            console.log(`Sales Person Input handleSubmit: Error in submit process: ${error.message}`);
             this.dispatchEvent(new CustomEvent('formerror', { detail: error }));
         }
         this._inProgress=false;

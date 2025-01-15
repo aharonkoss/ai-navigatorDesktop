@@ -27,8 +27,8 @@ export async function fetchGetAzure(body) {
     var thisresponse={success: false, message: null}
     var reqUrl='https://openainavigator.azurewebsites.net/api/httpGetReq?code=3z6LJZqcEeCnCz17q9xf57u-cBWB8I9nxLYqrbHNAbedAzFuqmNt1Q==';
     try {
-        console.log(`body: ${JSON.stringify(body)}`);
-        console.log(`reqUrl: ${reqUrl}`);
+        console.log(`fetchGetAzure body: ${JSON.stringify(body)}`);
+        console.log(`fetchGetAzure reqUrl: ${reqUrl}`);
         const response = await fetch(reqUrl, {
             method: 'POST',
             headers: {
@@ -40,10 +40,9 @@ export async function fetchGetAzure(body) {
         if (!response.ok) {
             thisresponse={success: false, message: `POST Request failed: ${response.status} ${response.statusText}`}
         }
-        console.log(`POST Request failed: ${response.status} ${response.statusText}`);
+        console.log(`POST Request success: ${response.status} ${response.statusText}`);
         thisresponse = await response.json();
-        console.log(`fetchPost thisresponse: ${thisresponse}`)
-        thisresponse.success=true;
+        console.log(`fetchGetAzure fetchPost thisresponse: ${thisresponse}`)
     } catch (error) {
         thisresponse={success: false, message: `POST Request failed on catch: ${error.message}`};
     }
