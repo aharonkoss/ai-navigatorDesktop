@@ -62,7 +62,7 @@
                                 <lightning-icon icon-name="utility:send" style="cursor:pointer;position: absolute;margin-left: -34px;right: 20px;" onclick={sendMessage}></lightning-icon>
                                 -->
                                 <div class="custom-icon-container ">
-                                   <x-lightning-icon iconurl="/icons/utility-sprite/svg/symbols.svg#send"></x-lightning-icon>
+                                   <x-lightning-icon iconurl="/icons/utility-sprite/svg/symbols.svg#send" cssclass="custom-icon-scenarios"></x-lightning-icon>
                                 </div>
                                 <!-- <button class="generate-draft-button" onclick={handleGenerateDraft}>Generate Draft</button> -->
                             </div>
@@ -125,7 +125,7 @@
                                         <!--
                                          <lightning-icon icon-name="standard:category" style="background-color: #afc4de;"></lightning-icon>
                                         -->
-                                        <x-lightning-icon iconurl="/icons/standard-sprite/svg/symbols.svg#category"></x-lightning-icon>
+                                        <x-lightning-icon iconurl={category.iconName} cssclass={category.iconCSS}></x-lightning-icon>
                                     </div>
                                     <span class="category-text" data-id={category.id} onclick={handleCategoryClick}>{category.name}</span>
                                     <!--

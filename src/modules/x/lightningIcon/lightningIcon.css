@@ -5,13 +5,102 @@
     width: 2rem; /* Small size: Adjust for desired dimensions */
     height: 2rem; /* Small size: Matches width */
     background-color: #f4f6f9; /* Optional: Add a background color */
-    border-radius: 50%; /* Makes the icon circular */
+    border-radius: 21%; /* Makes the icon circular */
     overflow: hidden;
 }
-
+.custom-icon-salesperson {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem; /* Small size: Adjust for desired dimensions */
+    height: 2rem; /* Small size: Matches width */
+    background-color: #89CA99; /* Optional: Add a background color */
+    border-radius: 21%; /* Makes the icon circular */
+    overflow: hidden;
+}
+.custom-icon-research-summary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem; /* Small size: Adjust for desired dimensions */
+    height: 2rem; /* Small size: Matches width */
+    background-color: #73BBEC; /* Optional: Add a background color */
+    border-radius: 21%; /* Makes the icon circular */
+    overflow: hidden;
+}
+.custom-icon-scenarios {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem; /* Small size: Adjust for desired dimensions */
+    height: 2rem; /* Small size: Matches width */
+    background-color: #6BB6F8; /* Optional: Add a background color */
+    border-radius: 21%; /* Makes the icon circular */
+    overflow: hidden;
+}
+.custom-icon-trustandcreditablity {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem; /* Small size: Adjust for desired dimensions */
+    height: 2rem; /* Small size: Matches width */
+    background-color: #AB7BEE; /* Optional: Add a background color */
+    border-radius: 21%; /* Makes the icon circular */
+    overflow: hidden;
+}
+.custom-icon-framediscussion {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem; /* Small size: Adjust for desired dimensions */
+    height: 2rem; /* Small size: Matches width */
+    background-color: #FF78A3; /* Optional: Add a background color */
+    border-radius: 21%; /* Makes the icon circular */
+    overflow: hidden;
+}
+.custom-icon-exploreneeds {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem; /* Small size: Adjust for desired dimensions */
+    height: 2rem; /* Small size: Matches width */
+    background-color: #BCCAD1; /* Optional: Add a background color */
+    border-radius: 21%; /* Makes the icon circular */
+    overflow: hidden;
+}
+.custom-icon-stories {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem; /* Small size: Adjust for desired dimensions */
+    height: 2rem; /* Small size: Matches width */
+    background-color: #5BC4BC; /* Optional: Add a background color */
+    border-radius: 21%; /* Makes the icon circular */
+    overflow: hidden;
+}
+.custom-icon-joincommitment {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem; /* Small size: Adjust for desired dimensions */
+    height: 2rem; /* Small size: Matches width */
+    background-color: #FFA58B; /* Optional: Add a background color */
+    border-radius: 21%; /* Makes the icon circular */
+    overflow: hidden;
+}
+.custom-icon-propensity {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem; /* Small size: Adjust for desired dimensions */
+    height: 2rem; /* Small size: Matches width */
+    background-color: #E4AFFF; /* Optional: Add a background color */
+    border-radius: 21%; /* Makes the icon circular */
+    overflow: hidden;
+}
 .custom-icon svg {
     width: 1.5rem; /* Scale the SVG to fit */
     height: 1.5rem;
-    fill: currentColor; /* Inherit text color */
-    color: #0070d2; /* Default Salesforce blue color */
+    fill: #ffffff; /* Inherit text color */
+    color: #ffffff; /* Default Salesforce blue color */
 }

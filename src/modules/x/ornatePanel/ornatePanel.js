@@ -11,16 +11,16 @@ export default class OrnatePanel extends LightningElement {
     @track _showHotTopics=true;
     @track isAIResearchSummaryActive=true;
     @track isChatPanelOpen=true;
-    @track categories = [    
-        { id: 'salesperson-inputs', name: "Salesperson Inputs", completed: false, checkbox:false, checked : false },
-        { id: 'ai-research-summary', name: "AI Research Summary", completed: false, checkbox:false, checked : false },   
-        { id: 'scenarios', name: "Scenarios", completed: false, checkbox:false, checked : false },       
-        { id: 'build-trust', name: "Build Trust & Credibility", completed: false, checkbox: true, checked : false },
-        { id: 'frame-discussion', name: "Frame the Discussion", completed: false, checkbox: true, checked : false },
-        { id: 'explore-needs', name: "Explore Needs", completed: false, checkbox: true, checked : false },
-        { id: 'stories', name: "Stories", completed: false, checkbox: true, checked : false },
-        { id: 'joint-commitment', name: "Joint Commitment", completed: false, checkbox: true, checked : false },
-        { id: 'propensity-score', name: "Propensity Score", completed: false, checkbox: true, checked : false }
+    @track categories =[        
+        { id: 'salesperson-inputs', name: "Salesperson Inputs", completed: false, draftIcon: false, checkbox:false, checked : false, active : true, iconName : '/icons/standard-sprite/svg/symbols.svg#form', iconCSS:'custom-icon-salesperson'},
+        { id: 'ai-research-summary', name: "AI Research Summary", completed: false, draftIcon: false, checkbox:false, checked : false, active : true, iconName : '/icons/standard-sprite/svg/symbols.svg#topic', iconCSS:'custom-icon-research-summary' },
+        { id: 'scenarios', name: "Scenarios", completed: false, draftIcon: false, checkbox:false, checked : false, active : true, iconName : '/icons/standard-sprite/svg/symbols.svg#activations', iconCSS:'custom-icon-scenarios' },       
+        { id: 'build-trust', name: "Build Trust & Credibility", completed: false, draftIcon: true, checkbox: true, checked : false, active : true, iconName : '/icons/standard-sprite/svg/symbols.svg#social', iconCSS:'custom-icon-trustandcreditablity' },
+        { id: 'frame-discussion', name: "Frame the Discussion", completed: false, draftIcon: true, checkbox: true, checked : false, active : true, iconName : '/icons/standard-sprite/svg/symbols.svg#rtc_presence', iconCSS:'custom-icon-framediscussion' },
+        { id: 'explore-needs', name: "Explore Needs", completed: false, draftIcon: true, checkbox: true, checked : false, active : true, iconName : '/icons/standard-sprite/svg/symbols.svg#opportunity', iconCSS:'custom-icon-exploreneeds' },
+        { id: 'stories', name: "Stories", completed: false, draftIcon: true, checkbox: true, checked : false, active : true, iconName : '/icons/standard-sprite/svg/symbols.svg#knowledge', iconCSS:'custom-icon-stories' },
+        { id: 'joint-commitment', name: "Joint Commitment", completed: false, draftIcon: true, checkbox: true, checked : false, active : true, iconName : '/icons/standard-sprite/svg/symbols.svg#cms', iconCSS:'custom-icon-joincommitment' },
+        { id: 'propensity-score', name: "Propensity Score", completed: false, draftIcon: true, checkbox: true, checked : false, active : true, iconName : '/icons/standard-sprite/svg/symbols.svg#metrics', iconCSS:'custom-icon-propensity' }
     ];
     @track conversationOptions=[
             {label: 'Default', value: 'default'},
@@ -43,7 +43,7 @@ export default class OrnatePanel extends LightningElement {
     @track generateDraftCss='accordion-content';
     @track discoveryCallPlanCss='accordion-content';
     @api salespersonInputs; // Reference to child component
-    meetingPreparationId='a00ak00000cSZxpAAG';
+    meetingPreparationId;
     getAPILatestMeetingPreparation='https://assistantcom3-dev-ed.develop.my.salesforce.com/services/apexrest/getAPILatestMeetingPreparation?meetingId=a00ak00000cEP2HAAW';
     apiInitializeConversation='https://assistantcom3-dev-ed.develop.my.salesforce.com/services/apexrest/apiInitializeConversation';
     apiGenerateAndSaveDraft='https://assistantcom3-dev-ed.develop.my.salesforce.com/services/apexrest/apiGenerateAndSaveDraft';
@@ -54,9 +54,7 @@ export default class OrnatePanel extends LightningElement {
            console.log(`connectedCallback() vloginInfo: ${JSON.stringify(vloginInfo)}`);
            if(vloginInfo.authenticated===false) {
               window.location.href = '/#/login';
-           } else {
-            this.meetingPreparationId = 'a00ak00000cSZxpAAG';
-           }
+           } 
         } catch(error) {
           alert(`Landing Page connectedCallback Error: ${error.message}`);
         }
