@@ -1,4 +1,5 @@
 <template>
+    <x-lightning-spinner alternative-text="Loading" size="medium"  if:true={isLoading}></x-lightning-spinner>
     <div class="ai-research-summary" style="padding: 1rem;background-color:#ffffff;">
         <div>
             <div class="slds-card__header slds-grid">
@@ -13,7 +14,6 @@
             </div>
             
             <div class="slds-card__body slds-card__body_inner">
-                   <x-lightning-spinner alternative-text="Loading" size="medium"  if:true={isLoading}></x-lightning-spinner>
                 <template if:false={isLoading}>
                     <template if:true={hasError}>
                         <div class="slds-box slds-theme_error slds-text-align_center slds-m-bottom_medium">

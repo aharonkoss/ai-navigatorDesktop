@@ -1,6 +1,7 @@
 import { LightningElement, track, api } from 'lwc';
 import { getLoginInfo } from '../../../utilities/apiService/loginInfo';
 import { fetchPostAzure, fetchGetAzure } from '../../../utilities/apiService/apiService';
+import { getSavedValues, setSavedValues } from '../../../utilities/apiService/localStorage';
 
 export default class OrnatePanel extends LightningElement {
     @track isLeftPanelOpen=true;
@@ -10,7 +11,6 @@ export default class OrnatePanel extends LightningElement {
     @track showAIResearchSummary=false;
     @track isWidePanel=false;
     @track _showHotTopics=true;
-    @track isAIResearchSummaryActive=true;
     @track isChatPanelOpen=true;
     @track categories =[        
         { id: 'salesperson-inputs', name: "Salesperson Inputs", completed: false, draftIcon: false, checkbox:false, checked : false, active : true, iconName : '/icons/standard-sprite/svg/symbols.svg#form', iconCSS:'custom-icon-salesperson'},
@@ -59,7 +59,12 @@ export default class OrnatePanel extends LightningElement {
            console.log(`connectedCallback() vloginInfo: ${JSON.stringify(vloginInfo)}`);
            if(vloginInfo.authenticated===false) {
               window.location.href = '/#/login';
-           } 
+           } else {
+               const savedVals=getSavedValues();
+               if(savedVals.saved==true) {
+                this.meetingPreparationId=savedVals.meetingId;
+               }
+           }
         } catch(error) {
           alert(`Landing Page connectedCallback Error: ${error.message}`);
         }
@@ -133,6 +138,8 @@ export default class OrnatePanel extends LightningElement {
     }
     handleSalespersonFormSubmitted(event) {
         this.meetingPreparationId = event.detail;
+        const savedVals={saved: true, message: 'Saving Meeting Id', meetingId: this.meetingPreparationId };
+        setSavedValues(savedVals);
         console.log(`Ornate Panel handleSalespersonFormSubmitted this.meetingPreparationId = ${this.meetingPreparationId}`);
         const categoryIndex = this.categories.findIndex(category => category.id === 'salesperson-inputs');
         if (categoryIndex !== -1) {
@@ -189,22 +196,31 @@ export default class OrnatePanel extends LightningElement {
         this.followUpSuggestions = [];
         this.hideFollowUp();
     }
+    hideFollowUp(){
+        try{
+            this.template.querySelector(".follow-up").style = "height:0px;";
+        }
+        catch(error){
+
+        }
+        this.isFollowUp = false;
+    }
     openAIResearchSummary() {
         try {
             this.activeCategoryId='ai-research-summary'; // Dynamically render the child component
             // Wait for the DOM to update, then initialize the child component
             setTimeout(() => {
-                this.handleOpenAIResearchSummary();
+                 this.handleOpenAIResearchSummary();
             }, 0); // Allow the DOM rendering to complete
         } catch(error) {
             alert(`openAIResearchSummary error ${error.message}`);
         }
     }
-    handleOpenAIResearchSummary() {
+    async handleOpenAIResearchSummary() {
       try {
             const aiResearchSummary = this.template.querySelector('[data-id="airesearchsummary"]');
             if (aiResearchSummary) {
-                aiResearchSummary.initialize();
+                await aiResearchSummary.initialize();
             } else {
                 console.log(`ornate panel handleOpenAIResearchSummary airesearchsummary is not found`);
             }
@@ -281,8 +297,17 @@ export default class OrnatePanel extends LightningElement {
     get isSalespersonInputsActive() {
         return this.activeCategoryId === 'salesperson-inputs';
     }
+    get isAIResearchSummaryActive() {
+        return this.activeCategoryId === 'ai-research-summary';
+    }
     get isChatPanelActive() {
-        return this.activeCategoryId !== 'salesperson-inputs';
+        if(this.activeCategoryId=='salesperson-inputs') {
+            return false;
+        } else if(this.activeCategoryId=='ai-research-summary') 
+            return false;
+        else {
+            return true;
+        }
     }
     get leftPanelClass() {
         return `left-panel ${this.isLeftPanelOpen ? 'open' : ''} ${this.isWidePanel ? 'wide' : ''}`;

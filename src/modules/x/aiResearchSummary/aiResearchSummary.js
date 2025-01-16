@@ -5,12 +5,13 @@ import { fetchPostAzure, fetchGetAzure } from '../../../utilities/apiService/api
 export default class AIResearchSummary extends LightningElement {
     @track summary = '';
     @track error = '';
-    @track isLoading = false;
+    @track _isLoading = false;
     @api meetingid;
-    getSavedSummary='https://assistantcom3-dev-ed.develop.my.salesforce.com/services/apexrest/getSavedSummary?meetingId=a00ak00000cWzLeAAK';
+    getSavedSummary='https://assistantcom3-dev-ed.develop.my.salesforce.com/services/apexrest/getSavedSummary?meetingId={meetingId}';
     getAIResearchSummary='https://assistantcom3-dev-ed.develop.my.salesforce.com/services/apexrest/getAIResearchSummary?meetingId={meetingId}';
     async connectedCallback(){
-        this.isLoading = true;
+        //this._isLoading = true;
+       // alert(`connectedCallback this._isLoading = true;`)
         try{
             console.log(`meetingid in research summary =>  ${this.meetingid}`);
             const rawSummary=await fetchGetAzure({url : this.getAIResearchSummary.replace('{meetingId}', this.meetingid)});
@@ -22,16 +23,17 @@ export default class AIResearchSummary extends LightningElement {
             
         }
         finally {
-            this.isLoading = false;
+          //  alert(`connectedCallback this._isLoading = false;`)
+           // this._isLoading = false;
         }
     }
 
     @api
     async initialize() {
-        this.isLoading = true;
+        this._isLoading = true;
+        alert(`initialize this._isLoading = true;`)
         this.error = '';
         this.summary = '';
-
         try {
             if(this.meetingid && this.meetingid.length > 0){
                 const rawSummary = await fetchGetAzure({url : this.getSavedSummary.replace('{meetingId}', this.meetingid)});
@@ -49,7 +51,8 @@ export default class AIResearchSummary extends LightningElement {
             console.error('Error fetching AI research summary:', error);
             this.error = error.body?.message || 'An unexpected error occurred while fetching the AI research summary.';
         } finally {
-            this.isLoading = false;
+            this._isLoading = false;
+            alert(`initialize this._isLoading = false;`)
         }
     }
 
@@ -83,5 +86,8 @@ export default class AIResearchSummary extends LightningElement {
         if (this.summary) {
             console.log('Component re-rendered with summary:', this.summary);
         }
+    }
+    get isLoading() {
+        return this._isLoading;
     }
 }
