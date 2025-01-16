@@ -1,5 +1,6 @@
 import { LightningElement, track, api } from 'lwc';
 import { getLoginInfo } from '../../../utilities/apiService/loginInfo';
+import { fetchPostAzure, fetchGetAzure } from '../../../utilities/apiService/apiService';
 
 export default class OrnatePanel extends LightningElement {
     @track isLeftPanelOpen=true;
@@ -47,7 +48,11 @@ export default class OrnatePanel extends LightningElement {
     getAPILatestMeetingPreparation='https://assistantcom3-dev-ed.develop.my.salesforce.com/services/apexrest/getAPILatestMeetingPreparation?meetingId=a00ak00000cEP2HAAW';
     apiInitializeConversation='https://assistantcom3-dev-ed.develop.my.salesforce.com/services/apexrest/apiInitializeConversation';
     apiGenerateAndSaveDraft='https://assistantcom3-dev-ed.develop.my.salesforce.com/services/apexrest/apiGenerateAndSaveDraft';
-    
+    apiUpdateRolePlayMode='https://assistantcom3-dev-ed.develop.my.salesforce.com/services/apexrest/apiUpdateRolePlayMode';
+    prompts={};
+    followUpSuggestions=[];
+    isRolePlayModeDisable=false;
+
     async connectedCallback() {
         try {
            const vloginInfo=getLoginInfo();
@@ -137,7 +142,7 @@ export default class OrnatePanel extends LightningElement {
     handleSalespersonFormError(event) {
         console.error('Error submitting salesperson form:', event.detail);
     }
-    handleCategoryClick(event) {
+    async handleCategoryClick(event) {
       try {
         console.log(`ornatePanel Category Clicked. Data Id: ${event.currentTarget.dataset.id}`);
         const categoryId = event.currentTarget.dataset.id;
@@ -149,13 +154,26 @@ export default class OrnatePanel extends LightningElement {
         }
        */
         if(this.activeCategoryId != categoryId){
+            this.closeFollowup();
             this.activeCategoryId = categoryId;
             if (categoryId === 'salesperson-inputs') {
                 this.openSalespersonInputs();
             } else if (categoryId === 'ai-research-summary') {
-                //this.openAIResearchSummary();
-                console.log(`handleCategoryClick categoryId === ai-research-summary`);
+                this.openAIResearchSummary();
+                console.log(`ornatePanel.js handleCategoryClick categoryId === ai-research-summary`);
             } else {
+                if(!this.isRolePlayModeDisable){
+                    this.isRolePlayModeDisable = true;
+                    
+                    //updateRolePlayMode({meetingId : this.meetingPreparationId, rolePlayMode : this.selectedRole});
+                    const reqBody={url: this.apiUpdateRolePlayMode, body: JSON.stringify({meetingId : this.meetingPreparationId, rolePlayMode : this.selectedRole})};
+                    const updateRolePlayMode=fetchPostAzure(reqBody);
+                }
+                if(typeof categoryId == 'string' && !this.isAllDisable && this.meetingPreparationId && this.meetingPreparationId.length > 0){
+                    this.isAllDisable = true;
+                    saveMeetingScenario({scenarioList : this.selectedScenarios, meetingId : this.meetingPreparationId});
+                }
+                this.isChatPanelOpen = true;
                 this.threadId = null;
                 this.messages = [];
                 this.isInitializing = true;
@@ -167,10 +185,31 @@ export default class OrnatePanel extends LightningElement {
         alert(`handleCategoryClick error ${error.message}`);
     }
     }
+    closeFollowup(){
+        this.followUpSuggestions = [];
+        this.hideFollowUp();
+    }
     openAIResearchSummary() {
-        const aiResearchSummary = this.template.querySelector('c-ai-research-summary');
-        if (aiResearchSummary) {
-            aiResearchSummary.initialize();
+        try {
+            this.activeCategoryId='ai-research-summary'; // Dynamically render the child component
+            // Wait for the DOM to update, then initialize the child component
+            setTimeout(() => {
+                this.handleOpenAIResearchSummary();
+            }, 0); // Allow the DOM rendering to complete
+        } catch(error) {
+            alert(`openAIResearchSummary error ${error.message}`);
+        }
+    }
+    handleOpenAIResearchSummary() {
+      try {
+            const aiResearchSummary = this.template.querySelector('[data-id="airesearchsummary"]');
+            if (aiResearchSummary) {
+                aiResearchSummary.initialize();
+            } else {
+                console.log(`ornate panel handleOpenAIResearchSummary airesearchsummary is not found`);
+            }
+        } catch(error) {
+            alert(`ornate panel handleOpenAIResearchSummary error ${error.message}`);
         }
     }
     closeLeftPanel() {
@@ -268,6 +307,9 @@ export default class OrnatePanel extends LightningElement {
             }
         });
         return selectedCategories;
+    }
+    get isFollowUpSuggestions(){
+        return this.followUpSuggestions && this.followUpSuggestions.length > 0;
     }
     
 }

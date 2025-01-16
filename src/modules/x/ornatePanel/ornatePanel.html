@@ -78,6 +78,20 @@
                                     data-id="salespersonInputs"
                                  ></x-salesperson-inputs>
                         </div>
+                        <div if:true={isAIResearchSummaryActive}>
+                            <div class="accordion-item">
+                                <div class="accordion-header">
+                                    AI Research Summary
+                                </div>
+                                <div class="accordion-content">
+                                    <x-ai-research-summary 
+                                        meetingid={meetingPreparationId}
+                                        data-id="airesearchsummary"
+                                    >
+                                    </x-ai-research-summary>
+                                </div>
+                            </div>
+                        </div>
                         </div>
                     <div class="category-panel slds-size_3-of-12">
                         <!--
