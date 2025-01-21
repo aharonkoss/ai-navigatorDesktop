@@ -1,5 +1,7 @@
 import { LightningElement, track, api } from 'lwc';
 import { getLoginInfo } from '../../../utilities/apiService/loginInfo';
+import { fetchPostAzure, fetchGetAzure } from '../../../utilities/apiService/apiService';
+import { getSavedValues, setSavedValues } from '../../../utilities/apiService/localStorage';
 
 export default class OrnatePanel extends LightningElement {
     @track isLeftPanelOpen=true;
@@ -9,18 +11,17 @@ export default class OrnatePanel extends LightningElement {
     @track showAIResearchSummary=false;
     @track isWidePanel=false;
     @track _showHotTopics=true;
-    @track isAIResearchSummaryActive=true;
     @track isChatPanelOpen=true;
-    @track categories = [    
-        { id: 'salesperson-inputs', name: "Salesperson Inputs", completed: false, checkbox:false, checked : false },
-        { id: 'ai-research-summary', name: "AI Research Summary", completed: false, checkbox:false, checked : false },   
-        { id: 'scenarios', name: "Scenarios", completed: false, checkbox:false, checked : false },       
-        { id: 'build-trust', name: "Build Trust & Credibility", completed: false, checkbox: true, checked : false },
-        { id: 'frame-discussion', name: "Frame the Discussion", completed: false, checkbox: true, checked : false },
-        { id: 'explore-needs', name: "Explore Needs", completed: false, checkbox: true, checked : false },
-        { id: 'stories', name: "Stories", completed: false, checkbox: true, checked : false },
-        { id: 'joint-commitment', name: "Joint Commitment", completed: false, checkbox: true, checked : false },
-        { id: 'propensity-score', name: "Propensity Score", completed: false, checkbox: true, checked : false }
+    @track categories =[        
+        { id: 'salesperson-inputs', name: "Salesperson Inputs", completed: false, draftIcon: false, checkbox:false, checked : false, active : true, iconName : '/icons/standard-sprite/svg/symbols.svg#form', iconCSS:'custom-icon-salesperson'},
+        { id: 'ai-research-summary', name: "AI Research Summary", completed: false, draftIcon: false, checkbox:false, checked : false, active : true, iconName : '/icons/standard-sprite/svg/symbols.svg#topic', iconCSS:'custom-icon-research-summary' },
+        { id: 'scenarios', name: "Scenarios", completed: false, draftIcon: false, checkbox:false, checked : false, active : true, iconName : '/icons/standard-sprite/svg/symbols.svg#activations', iconCSS:'custom-icon-scenarios' },       
+        { id: 'build-trust', name: "Build Trust & Credibility", completed: false, draftIcon: true, checkbox: true, checked : false, active : true, iconName : '/icons/standard-sprite/svg/symbols.svg#social', iconCSS:'custom-icon-trustandcreditablity' },
+        { id: 'frame-discussion', name: "Frame the Discussion", completed: false, draftIcon: true, checkbox: true, checked : false, active : true, iconName : '/icons/standard-sprite/svg/symbols.svg#rtc_presence', iconCSS:'custom-icon-framediscussion' },
+        { id: 'explore-needs', name: "Explore Needs", completed: false, draftIcon: true, checkbox: true, checked : false, active : true, iconName : '/icons/standard-sprite/svg/symbols.svg#opportunity', iconCSS:'custom-icon-exploreneeds' },
+        { id: 'stories', name: "Stories", completed: false, draftIcon: true, checkbox: true, checked : false, active : true, iconName : '/icons/standard-sprite/svg/symbols.svg#knowledge', iconCSS:'custom-icon-stories' },
+        { id: 'joint-commitment', name: "Joint Commitment", completed: false, draftIcon: true, checkbox: true, checked : false, active : true, iconName : '/icons/standard-sprite/svg/symbols.svg#cms', iconCSS:'custom-icon-joincommitment' },
+        { id: 'propensity-score', name: "Propensity Score", completed: false, draftIcon: true, checkbox: true, checked : false, active : true, iconName : '/icons/standard-sprite/svg/symbols.svg#metrics', iconCSS:'custom-icon-propensity' }
     ];
     @track conversationOptions=[
             {label: 'Default', value: 'default'},
@@ -43,11 +44,15 @@ export default class OrnatePanel extends LightningElement {
     @track generateDraftCss='accordion-content';
     @track discoveryCallPlanCss='accordion-content';
     @api salespersonInputs; // Reference to child component
-    meetingPreparationId='a00ak00000cSZxpAAG';
+    meetingPreparationId;
     getAPILatestMeetingPreparation='https://assistantcom3-dev-ed.develop.my.salesforce.com/services/apexrest/getAPILatestMeetingPreparation?meetingId=a00ak00000cEP2HAAW';
     apiInitializeConversation='https://assistantcom3-dev-ed.develop.my.salesforce.com/services/apexrest/apiInitializeConversation';
     apiGenerateAndSaveDraft='https://assistantcom3-dev-ed.develop.my.salesforce.com/services/apexrest/apiGenerateAndSaveDraft';
-    
+    apiUpdateRolePlayMode='https://assistantcom3-dev-ed.develop.my.salesforce.com/services/apexrest/apiUpdateRolePlayMode';
+    prompts={};
+    followUpSuggestions=[];
+    isRolePlayModeDisable=false;
+
     async connectedCallback() {
         try {
            const vloginInfo=getLoginInfo();
@@ -55,7 +60,10 @@ export default class OrnatePanel extends LightningElement {
            if(vloginInfo.authenticated===false) {
               window.location.href = '/#/login';
            } else {
-            this.meetingPreparationId = 'a00ak00000cSZxpAAG';
+               const savedVals=getSavedValues();
+               if(savedVals.saved==true) {
+                this.meetingPreparationId=savedVals.meetingId;
+               }
            }
         } catch(error) {
           alert(`Landing Page connectedCallback Error: ${error.message}`);
@@ -130,6 +138,8 @@ export default class OrnatePanel extends LightningElement {
     }
     handleSalespersonFormSubmitted(event) {
         this.meetingPreparationId = event.detail;
+        const savedVals={saved: true, message: 'Saving Meeting Id', meetingId: this.meetingPreparationId };
+        setSavedValues(savedVals);
         console.log(`Ornate Panel handleSalespersonFormSubmitted this.meetingPreparationId = ${this.meetingPreparationId}`);
         const categoryIndex = this.categories.findIndex(category => category.id === 'salesperson-inputs');
         if (categoryIndex !== -1) {
@@ -139,7 +149,7 @@ export default class OrnatePanel extends LightningElement {
     handleSalespersonFormError(event) {
         console.error('Error submitting salesperson form:', event.detail);
     }
-    handleCategoryClick(event) {
+    async handleCategoryClick(event) {
       try {
         console.log(`ornatePanel Category Clicked. Data Id: ${event.currentTarget.dataset.id}`);
         const categoryId = event.currentTarget.dataset.id;
@@ -151,13 +161,26 @@ export default class OrnatePanel extends LightningElement {
         }
        */
         if(this.activeCategoryId != categoryId){
+            this.closeFollowup();
             this.activeCategoryId = categoryId;
             if (categoryId === 'salesperson-inputs') {
                 this.openSalespersonInputs();
             } else if (categoryId === 'ai-research-summary') {
-                //this.openAIResearchSummary();
-                console.log(`handleCategoryClick categoryId === ai-research-summary`);
+                this.openAIResearchSummary();
+                console.log(`ornatePanel.js handleCategoryClick categoryId === ai-research-summary`);
             } else {
+                if(!this.isRolePlayModeDisable){
+                    this.isRolePlayModeDisable = true;
+                    
+                    //updateRolePlayMode({meetingId : this.meetingPreparationId, rolePlayMode : this.selectedRole});
+                    const reqBody={url: this.apiUpdateRolePlayMode, body: JSON.stringify({meetingId : this.meetingPreparationId, rolePlayMode : this.selectedRole})};
+                    const updateRolePlayMode=fetchPostAzure(reqBody);
+                }
+                if(typeof categoryId == 'string' && !this.isAllDisable && this.meetingPreparationId && this.meetingPreparationId.length > 0){
+                    this.isAllDisable = true;
+                    saveMeetingScenario({scenarioList : this.selectedScenarios, meetingId : this.meetingPreparationId});
+                }
+                this.isChatPanelOpen = true;
                 this.threadId = null;
                 this.messages = [];
                 this.isInitializing = true;
@@ -169,10 +192,40 @@ export default class OrnatePanel extends LightningElement {
         alert(`handleCategoryClick error ${error.message}`);
     }
     }
+    closeFollowup(){
+        this.followUpSuggestions = [];
+        this.hideFollowUp();
+    }
+    hideFollowUp(){
+        try{
+            this.template.querySelector(".follow-up").style = "height:0px;";
+        }
+        catch(error){
+
+        }
+        this.isFollowUp = false;
+    }
     openAIResearchSummary() {
-        const aiResearchSummary = this.template.querySelector('c-ai-research-summary');
-        if (aiResearchSummary) {
-            aiResearchSummary.initialize();
+        try {
+            this.activeCategoryId='ai-research-summary'; // Dynamically render the child component
+            // Wait for the DOM to update, then initialize the child component
+            setTimeout(() => {
+                 this.handleOpenAIResearchSummary();
+            }, 0); // Allow the DOM rendering to complete
+        } catch(error) {
+            alert(`openAIResearchSummary error ${error.message}`);
+        }
+    }
+    async handleOpenAIResearchSummary() {
+      try {
+            const aiResearchSummary = this.template.querySelector('[data-id="airesearchsummary"]');
+            if (aiResearchSummary) {
+                await aiResearchSummary.initialize();
+            } else {
+                console.log(`ornate panel handleOpenAIResearchSummary airesearchsummary is not found`);
+            }
+        } catch(error) {
+            alert(`ornate panel handleOpenAIResearchSummary error ${error.message}`);
         }
     }
     closeLeftPanel() {
@@ -244,8 +297,17 @@ export default class OrnatePanel extends LightningElement {
     get isSalespersonInputsActive() {
         return this.activeCategoryId === 'salesperson-inputs';
     }
+    get isAIResearchSummaryActive() {
+        return this.activeCategoryId === 'ai-research-summary';
+    }
     get isChatPanelActive() {
-        return this.activeCategoryId !== 'salesperson-inputs';
+        if(this.activeCategoryId=='salesperson-inputs') {
+            return false;
+        } else if(this.activeCategoryId=='ai-research-summary') 
+            return false;
+        else {
+            return true;
+        }
     }
     get leftPanelClass() {
         return `left-panel ${this.isLeftPanelOpen ? 'open' : ''} ${this.isWidePanel ? 'wide' : ''}`;
@@ -270,6 +332,9 @@ export default class OrnatePanel extends LightningElement {
             }
         });
         return selectedCategories;
+    }
+    get isFollowUpSuggestions(){
+        return this.followUpSuggestions && this.followUpSuggestions.length > 0;
     }
     
 }

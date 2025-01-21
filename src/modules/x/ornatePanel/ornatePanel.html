@@ -62,12 +62,13 @@
                                 <lightning-icon icon-name="utility:send" style="cursor:pointer;position: absolute;margin-left: -34px;right: 20px;" onclick={sendMessage}></lightning-icon>
                                 -->
                                 <div class="custom-icon-container ">
-                                   <x-lightning-icon iconurl="/icons/utility-sprite/svg/symbols.svg#send"></x-lightning-icon>
+                                   <x-lightning-icon iconurl="/icons/utility-sprite/svg/symbols.svg#send" cssclass="custom-icon-scenarios"></x-lightning-icon>
                                 </div>
                                 <!-- <button class="generate-draft-button" onclick={handleGenerateDraft}>Generate Draft</button> -->
                             </div>
                         </div>
                         <div style="width:80%;margin-left:13px;margin-right:-3px;" if:true={isSalespersonInputsActive}>
+                            <div class="accordion-item">
                             <div class="accordion-header" style="font-size:22px;">
                                 Salesperson Inputs
                             </div>
@@ -77,6 +78,21 @@
                                     onformerror={handleSalespersonFormError}
                                     data-id="salespersonInputs"
                                  ></x-salesperson-inputs>
+                        </div>
+                        </div>
+                        <div if:true={isAIResearchSummaryActive} style="width:67%;">
+                            <div class="accordion-item">
+                                <div class="accordion-header">
+                                    AI Research Summary
+                                </div>
+                                <div class="accordion-content">
+                                    <x-ai-research-summary 
+                                        meetingid={meetingPreparationId}
+                                        data-id="airesearchsummary"
+                                    >
+                                    </x-ai-research-summary>
+                                </div>
+                            </div>
                         </div>
                         </div>
                     <div class="category-panel slds-size_3-of-12">
@@ -125,7 +141,7 @@
                                         <!--
                                          <lightning-icon icon-name="standard:category" style="background-color: #afc4de;"></lightning-icon>
                                         -->
-                                        <x-lightning-icon iconurl="/icons/standard-sprite/svg/symbols.svg#category"></x-lightning-icon>
+                                        <x-lightning-icon iconurl={category.iconName} cssclass={category.iconCSS}></x-lightning-icon>
                                     </div>
                                     <span class="category-text" data-id={category.id} onclick={handleCategoryClick}>{category.name}</span>
                                     <!--

@@ -1,0 +1,184 @@
+/* ===== Salesforce Lightning Design System Styles ===== */
+
+/* Card Wrapper */
+.slds-card {
+    background: #ffffff;
+    border: 1px solid #dddbda;
+    border-radius: 0.25rem;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.05);
+    padding: 1rem;
+}
+
+/* Card Header */
+.slds-card__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+    border-bottom: 1px solid #dddbda;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #1d1f21;
+}
+
+.slds-card__header .slds-media {
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+.slds-card__header .slds-media__body {
+    flex-grow: 1;
+}
+
+/* Card Body */
+.slds-card__body {
+    padding: 1rem;
+    color: #4b4b4b;
+    font-size: 0.875rem;
+}
+
+.slds-card__body_inner {
+    padding: 1rem 0;
+}
+
+/* Card Footer */
+.slds-card__footer {
+    padding: 0.5rem 1rem;
+    border-top: 1px solid #dddbda;
+    text-align: center;
+    font-size: 0.875rem;
+    color: #5e5e5e;
+}
+
+/* Grid Layout */
+.slds-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.slds-media {
+    display: flex;
+    align-items: center;
+}
+
+.slds-media_center {
+    align-items: center;
+}
+
+.slds-has-flexi-truncate {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Spinner */
+.slds-is-relative {
+    position: relative;
+}
+
+.slds-m-around_medium {
+    margin: 1rem;
+}
+
+/* Text Utilities */
+.slds-text-align_center {
+    text-align: center;
+}
+
+.slds-text-heading_medium {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.slds-text-color_default {
+    color: #3e3e3e;
+}
+
+.slds-text-longform {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #333333;
+}
+
+.slds-theme_error {
+    background: #fce4e4;
+    color: #d8000c;
+    border: 1px solid #d8000c;
+    border-radius: 0.25rem;
+}
+
+/* Buttons */
+.slds-button {
+    display: inline-block;
+    font-size: 0.875rem;
+    line-height: 1.5rem;
+    padding: 0.5rem 1rem;
+    text-align: center;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+}
+
+.slds-button_brand {
+    background: #0070d2;
+    color: #ffffff;
+}
+
+.slds-button_neutral {
+    background: #f4f6f9;
+    color: #1d1f21;
+    border: 1px solid #dddbda;
+}
+
+/* Margins */
+.slds-m-top_small {
+    margin-top: 0.5rem;
+}
+
+/* ===== Custom Styles for AI Research Summary ===== */
+
+/* Wrapper for the main container */
+.ai-research-summary {
+    padding: 1rem; /* Adjust padding if SLDS padding classes are not used */
+    background-color: #ffffff; /* Ensure a clean white background */
+    border-radius: 0.25rem; /* Optional: Slight rounding for a polished look */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Subtle shadow for card effect */
+}
+
+/* Header styling for the informational text */
+.ai-research-summary .header-text {
+    font-size: 1.2rem;
+    color: darkblue; /* Matches your original design */
+    font-weight: 500; /* Optional: Slightly thicker text for emphasis */
+}
+
+/* Error box styling */
+.ai-research-summary .error-box {
+    padding: 1rem;
+    border-radius: 0.25rem;
+    background-color: #fce4e4; /* Light red for error background */
+    color: #d8000c; /* Dark red for error text */
+    text-align: center;
+}
+
+/* Button styling adjustments */
+.ai-research-summary .button-margin {
+    margin-top: 0.5rem; /* Consistent spacing above buttons */
+}
+
+/* Text alignment for the summary */
+.ai-research-summary .summary-text {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #333333; /* Dark grey for readability */
+}
+
+/* Centered alignment for "no summary" message */
+.ai-research-summary .no-summary {
+    text-align: center;
+    color: #666666; /* Light grey for placeholder text */
+    margin: 1rem 0;
+}

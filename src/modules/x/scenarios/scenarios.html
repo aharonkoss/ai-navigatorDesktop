@@ -1,0 +1,87 @@
+<template>
+    <div style="padding:0 10px 0 20px">
+        
+        <template if:true={isAllDisable}>
+            <div style="font-size: 19px;font-weight:600;"><br/>Selected Scenarios<br/><br/></div>
+            <template if:true={isScenarioSelected} for:each={selectedScenarios} for:item="scenario">
+                <div key={scenario.name} class="slds-grid">
+                    <div>
+                        <lightning-input type="checkbox" disabled="true" checked="true"></lightning-input>
+                        <x-lightning-input
+                            label=""
+                            type="checkbox"
+                            checked="true"
+                            onchange={handleCheckboxChange}
+                            cssclass="slds-checkbox absolute-right"
+                        ></x-lightning-input>
+                    </div>
+                    <div>
+                        <p style="font-size: 15px;">{scenario.name}<br/><font style="font-size: 12px; color:gray;">{scenario.description}</font><br/><br/></p>
+                    </div>
+                </div>
+            </template>
+            <template if:false={isScenarioSelected}>
+                There was no scenario for this meeting.
+            </template>
+        </template>
+
+        <template if:false={isAllDisable}>
+            <div style="font-size: 19px;font-weight:600;"><br/>{userName}'s Scenario&nbsp;&nbsp;<a style="font-size: 11px;text-decoration:underline;" data-button="Add Scenario" onclick={handleButton}>Add Scenario</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="slds-is-relative"><x-lightning-spinner alternative-text="...Loading" size="medium"  if:true={isUserSpinner}></x-lightning-spinner></span><br/><br/></div>
+            <template if:true={userScenarios} for:each={userScenarios} for:item="scenario">
+                <div key={scenario.name} class="slds-grid">
+                    <div>
+                        <lightning-input type="checkbox" disabled={scenario.disabled} checked={scenario.checked} data-type="User's Scenario" data-name={scenario.name} data-description={scenario.description} onchange={handleCheckbox}></lightning-input>
+                    </div>
+                    <div>
+                        <p style="font-size: 15px;">{scenario.name}<br/><font style="font-size: 12px; color:gray;">{scenario.description}</font><br/><br/></p>
+                    </div>
+                </div>
+            </template>
+            <template if:false={userScenarios}>
+                There is no scenario available for this user.
+            </template>
+
+            <div style="font-size: 19px;font-weight:600;"><br/>AI Generated Scenarios&nbsp;&nbsp;<a style="font-size: 11px;text-decoration:underline;" data-button="Refresh Scenarios" onclick={handleButton}>Refresh Scenarios</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="slds-is-relative"><x-lightning-spinner alternative-text="...Loading" size="medium"  if:true={isAISpinner}></x-lightning-spinner></span><br/><br/></div>
+            <template if:true={aiGeneratedScenarios} for:each={aiGeneratedScenarios} for:item="scenario">
+                <div key={scenario.name} class="slds-grid">
+                    <div>
+                        <lightning-input type="checkbox" disabled={scenario.disabled} checked={scenario.checked} data-type="AI Generated Scenarios" data-name={scenario.name} data-description={scenario.description} onchange={handleCheckbox}></lightning-input>
+                    </div>
+                    <div>
+                        <p style="font-size: 15px;">{scenario.name}<br/><font style="font-size: 12px; color:gray;">{scenario.description}</font><br/><br/></p>
+                    </div>
+                </div>
+            </template>
+            <template if:true={isError}>
+                <p style="color:red;font-size:15px;">Error : {errorMessage}</p>
+            </template>
+        </template>
+
+        <template if:true={isNewScenario}>
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                            <lightning-icon icon-name="utility:close"
+                            alternative-text="close"
+                            variant="inverse"
+                            size="small"></lightning-icon>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 class="slds-text-heading_medium slds-hyphenate">New Scenario</h2>
+                    </header>
+                
+                    <div class="slds-modal__content slds-p-around_medium">
+                        <lightning-input type="text" label="Name" data-key="name" value={newScenario.name} onchange={handleValueChange}></lightning-input>
+                        <lightning-textarea label="Description" data-key="description" value={newScenario.description} onchange={handleValueChange}></lightning-textarea>
+                    </div>
+            
+                    <footer class="slds-modal__footer">
+                        <lightning-button variant="brand" disabled={isSaveScenarioDesable} label="Save" onclick={saveNewScenario}></lightning-button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+    </div>
+</template>

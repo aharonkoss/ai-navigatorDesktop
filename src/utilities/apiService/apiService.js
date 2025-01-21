@@ -99,10 +99,9 @@ export async function fetchPostAzure(body) {
         if (!response.ok) {
             thisresponse={success: false, message: `POST Request failed: ${response.status} ${response.statusText}`}
         }
-        console.log(`POST Request failed: ${response.status} ${response.statusText}`);
+        console.log(`POST Request success: ${response.status} ${response.statusText}`);
         thisresponse = await response.json();
         console.log(`fetchPost thisresponse: ${thisresponse}`)
-        thisresponse.success=true;
     } catch (error) {
         thisresponse={success: false, message: `POST Request failed on catch: ${error.message}`};
     }
