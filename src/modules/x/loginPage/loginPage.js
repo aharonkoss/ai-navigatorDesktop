@@ -1,5 +1,5 @@
 import { LightningElement, track } from 'lwc';
-import { fetchPost } from '../../../utilities/apiService/apiService';
+import { fetchPost, encode } from '../../../utilities/apiService/apiService';
 import { getLoginInfo, setLoginInfo } from '../../../utilities/apiService/loginInfo';
 
 export default class LoginPage extends LightningElement {
@@ -28,11 +28,12 @@ export default class LoginPage extends LightningElement {
   }
   async handleLogin(event) {
     if(this._userName!=null&&this._password!=null) {
-        const loginReq = {email: this._userName, password: this._password};
-        var response={};
+        const loginReq = {email: this._userName, password: encode(this._password)};
+        console.log(`handleLogin loginReq ${JSON.stringify(loginReq)}`);
+        var response=[];
         this._inProgress=true;
         try {
-            response=await fetchPost('openAINavigatorAuth', loginReq);
+            response=await fetchPost('aiNavLogin', loginReq, '0PDrEOCGze9YvoN1kWdXZEgZANqvHKZ8TPM5cq_hqwpXAzFudDKXDg==');
             if(response.success) {
               console.log(`handleLogin response is true. message is: ${response.message}`);
               const bllogin=setLoginInfo(response);

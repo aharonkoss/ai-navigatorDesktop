@@ -30,7 +30,9 @@
             <template if:true={userScenarios} for:each={userScenarios} for:item="scenario">
                 <div key={scenario.name} class="slds-grid">
                     <div>
+                        <!--
                         <lightning-input type="checkbox" disabled={scenario.disabled} checked={scenario.checked} data-type="User's Scenario" data-name={scenario.name} data-description={scenario.description} onchange={handleCheckbox}></lightning-input>
+                        -->
                     </div>
                     <div>
                         <p style="font-size: 15px;">{scenario.name}<br/><font style="font-size: 12px; color:gray;">{scenario.description}</font><br/><br/></p>
@@ -45,7 +47,9 @@
             <template if:true={aiGeneratedScenarios} for:each={aiGeneratedScenarios} for:item="scenario">
                 <div key={scenario.name} class="slds-grid">
                     <div>
+                        <!--
                         <lightning-input type="checkbox" disabled={scenario.disabled} checked={scenario.checked} data-type="AI Generated Scenarios" data-name={scenario.name} data-description={scenario.description} onchange={handleCheckbox}></lightning-input>
+                        -->
                     </div>
                     <div>
                         <p style="font-size: 15px;">{scenario.name}<br/><font style="font-size: 12px; color:gray;">{scenario.description}</font><br/><br/></p>
@@ -72,12 +76,16 @@
                     </header>
                 
                     <div class="slds-modal__content slds-p-around_medium">
+                        <!--
                         <lightning-input type="text" label="Name" data-key="name" value={newScenario.name} onchange={handleValueChange}></lightning-input>
                         <lightning-textarea label="Description" data-key="description" value={newScenario.description} onchange={handleValueChange}></lightning-textarea>
+                        -->
                     </div>
             
                     <footer class="slds-modal__footer">
+                        <!--
                         <lightning-button variant="brand" disabled={isSaveScenarioDesable} label="Save" onclick={saveNewScenario}></lightning-button>
+                        -->
                     </footer>
                 </div>
             </section>

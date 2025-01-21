@@ -1,4 +1,4 @@
-const BASE_URL = 'https://openainavigator.azurewebsites.net/api/{endPoint}?code=aJHzLvHHSfN6OlnFc2MzlyKPc-mvw17QRdc2E5Se7-TcAzFuat7l1g=='; // Replace with your base API URL
+const BASE_URL = 'https://openainavigator.azurewebsites.net/api/{endPoint}?code={code}'; // Replace with your base API URL
 /**
  * Generic function to make GET requests.
  * @param {string} endpoint - The API endpoint to fetch.
@@ -55,11 +55,12 @@ export async function fetchGetAzure(body) {
  * @param {Object} body - The payload to send in the request.
  * @returns {Promise} - Resolves to the API response data.
  */
-export async function fetchPost(endpoint, body) {
+export async function fetchPost(endpoint, body, code) {
     var thisresponse={success: false, message: null}
     var reqUrl;
     try {
-        reqUrl=BASE_URL.replace('{endPoint}', endpoint);
+        reqUrl=BASE_URL.replace('{endPoint}', endpoint)
+                       .replace('{code}',code);
         console.log(`body: ${JSON.stringify(body)}`);
         console.log(`reqUrl: ${reqUrl}`);
         const response = await fetch(reqUrl, {
@@ -73,10 +74,9 @@ export async function fetchPost(endpoint, body) {
         if (!response.ok) {
             thisresponse={success: false, message: `POST Request failed: ${response.status} ${response.statusText}`}
         }
-        console.log(`POST Request failed: ${response.status} ${response.statusText}`);
+        console.log(`POST Request success! ${response.status} ${response.statusText}`);
         thisresponse = await response.json();
-        console.log(`fetchPost thisresponse: ${thisresponse}`)
-        thisresponse.success=true;
+        console.log(`fetchPost thisresponse: ${JSON.stringify(thisresponse)}`)
     } catch (error) {
         thisresponse={success: false, message: `POST Request failed on catch: ${error.message}`};
     }
@@ -107,4 +107,6 @@ export async function fetchPostAzure(body) {
     }
     return thisresponse;
 }
-
+export function encode(data) {
+    return btoa(data); // Use btoa to encode the data
+  }
