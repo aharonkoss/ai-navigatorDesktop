@@ -27,7 +27,7 @@ export default class SalespersonInputs extends LightningElement {
         console.log('Sales Person Input connectedCallback: this.meetingid - ', this.meetingid);
         if(this.meetingid && this.meetingid.length > 0){
             const params=`&meetingId=${this.meetingid}`;
-            const strResult=await fetchGet('getMeetingPreparation',params,'');
+            const strResult=await fetchGet('getMeetingPreparation',params,'1LqUfwxh4O6WdsiPXw0pMvULlTbBUJmrpnVhZP5cLHgDAzFuCNU-ow==');
             result=JSON.parse(strResult);
             if(result.success==true) {
                 let frmData = {};
