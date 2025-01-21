@@ -1,5 +1,5 @@
 import { LightningElement, api, track } from 'lwc';
-import { fetchPostAzure, fetchGetAzure } from '../../../utilities/apiService/apiService';
+import { fetchPost, fetchGet } from '../../../utilities/apiService/apiService';
 
 export default class SalespersonInputs extends LightningElement {
     @track formData = {
@@ -26,9 +26,8 @@ export default class SalespersonInputs extends LightningElement {
         try {
         console.log('Sales Person Input connectedCallback: this.meetingid - ', this.meetingid);
         if(this.meetingid && this.meetingid.length > 0){
-            const newUrl=this.getEndPoint.replace('{meetingId}', this.meetingid );
-            const request={url: newUrl};
-            const strResult=await fetchGetAzure(request);
+            const params=`&meetingId=${this.meetingid}`;
+            const strResult=await fetchGet('getMeetingPreparation',params,'1LqUfwxh4O6WdsiPXw0pMvULlTbBUJmrpnVhZP5cLHgDAzFuCNU-ow==');
             result=JSON.parse(strResult);
             if(result.success==true) {
                 let frmData = {};
@@ -79,7 +78,7 @@ export default class SalespersonInputs extends LightningElement {
     
         try {
 
-            const result = await fetchPostAzure({url: this.postEndPoint, body: this.formData});  
+            const result = await fetchPost('createMeetingPreparation',this.formData, 'js585-TXcjmVS3qfkgkWcP7A0dMLhnqqUBSG_3i_11MNAzFu6cPEmA==');  
             if(result.success==true) {
                 alert(`Sales Person Input success = true\n${JSON.stringify(result)}`);
                 this.formData['meetingId'] = result.meetingPreparationId;

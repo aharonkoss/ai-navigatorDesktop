@@ -4,9 +4,9 @@ const BASE_URL = 'https://openainavigator.azurewebsites.net/api/{endPoint}?code=
  * @param {string} endpoint - The API endpoint to fetch.
  * @returns {Promise} - Resolves to the API response data.
  */
-export async function fetchGet(endpoint) {
+export async function fetchGet(endpoint,params,code) {
     try {
-        const response = await fetch(`${BASE_URL}${endpoint}`, {
+        const response = await fetch(`${BASE_URL}${endpoint}?code=${code}&${params}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
