@@ -138,7 +138,7 @@ export default class OrnatePanel extends LightningElement {
     }
     handleSalespersonFormSubmitted(event) {
         this.meetingPreparationId = event.detail;
-        const savedVals={saved: true, message: 'Saving Meeting Id', meetingId: this.meetingPreparationId };
+        const savedVals={saved: true, message: 'Success: Saving Meeting Id', meetingId: this.meetingPreparationId };
         setSavedValues(savedVals);
         console.log(`Ornate Panel handleSalespersonFormSubmitted this.meetingPreparationId = ${this.meetingPreparationId}`);
         const categoryIndex = this.categories.findIndex(category => category.id === 'salesperson-inputs');

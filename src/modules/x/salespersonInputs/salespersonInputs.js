@@ -21,26 +21,26 @@ export default class SalespersonInputs extends LightningElement {
     postEndPoint='https://assistantcom3-dev-ed.develop.my.salesforce.com/services/apexrest/apiCreateMeetingPreparation';
 
     async connectedCallback(){
-        var result={};
+        //var result={};
         this._inProgress=true;
         try {
         console.log('Sales Person Input connectedCallback: this.meetingid - ', this.meetingid);
         if(this.meetingid && this.meetingid.length > 0){
             const params=`&meetingId=${this.meetingid}`;
-            const strResult=await fetchGet('getMeetingPreparation',params,'1LqUfwxh4O6WdsiPXw0pMvULlTbBUJmrpnVhZP5cLHgDAzFuCNU-ow==');
-            result=JSON.parse(strResult);
+            const result=await fetchGet('getMeetingPreparation',params,'1LqUfwxh4O6WdsiPXw0pMvULlTbBUJmrpnVhZP5cLHgDAzFuCNU-ow==');
+            //result=JSON.parse(strResult);
             if(result.success==true) {
                 let frmData = {};
-                frmData.meetingId = result.data.Id;
-                frmData.meetingDate = result.data[0].Meeting_Date__c,
-                frmData.meetingLocation = result.data[0].Meeting_Location__c ? result.data[0].Meeting_Location__c : '',
-                frmData.clientName = result.data[0].Client__c ? result.data[0].Client__c : '',
-                frmData.contactName = result.data[0].Client_Contact__c ? result.data[0].Client_Contact__c : '',
-                frmData.isNewClient = result.data[0].Is_New_Client__c,
-                frmData.minGoal = result.data[0].Minimum_Goal__c ? result.data[0].Minimum_Goal__c : '',
-                frmData.maxGoal = result.data[0].Maximum_Goal__c ? result.data[0].Maximum_Goal__c : '',
-                frmData.valueAddedCallPurpose = result.data[0].Value_Added_Call_Purpose__c ? result.data[0].Value_Added_Call_Purpose__c : '',
-                frmData.additionalNotes = result.data[0].Additional_Notes__c ? result.data[0].Additional_Notes__c : ''
+                frmData.meetingId = result.Id;
+                frmData.meetingDate = result.Meeting_Date__c,
+                frmData.meetingLocation = result.Meeting_Location__c ? result.Meeting_Location__c : '',
+                frmData.clientName = result.Client__c ? result.Client__c : '',
+                frmData.contactName = result.Client_Contact__c ? result.Client_Contact__c : '',
+                frmData.isNewClient = result.Is_New_Client__c,
+                frmData.minGoal = result.Minimum_Goal__c ? result.Minimum_Goal__c : '',
+                frmData.maxGoal = result.Maximum_Goal__c ? result.Maximum_Goal__c : '',
+                frmData.valueAddedCallPurpose = result.Value_Added_Call_Purpose__c ? result.Value_Added_Call_Purpose__c : '',
+                frmData.additionalNotes = result.Additional_Notes__c ? result.Additional_Notes__c : ''
                 this.formData = {...frmData};
                 console.log(JSON.stringify(this.formData));
             } else {
@@ -80,12 +80,12 @@ export default class SalespersonInputs extends LightningElement {
 
             const result = await fetchPost('createMeetingPreparation',this.formData, 'js585-TXcjmVS3qfkgkWcP7A0dMLhnqqUBSG_3i_11MNAzFu6cPEmA==');  
             if(result.success==true) {
-                alert(`Sales Person Input success = true\n${JSON.stringify(result)}`);
-                this.formData['meetingId'] = result.meetingPreparationId;
-                console.log('Meeting Preparation record created with Id:', result.meetingPreparationId);
+                //alert(`Sales Person Input success = true\n${JSON.stringify(result)}`);
+                this.formData['meetingId'] = result.createdMeetingId;
+                console.log('Meeting Preparation record created with Id:', result.createdMeetingId);
                 this.showThankYouMessage = true;
                 console.log('Thank you message should be shown now');
-                this.dispatchEvent(new CustomEvent('formsubmitted', { detail: result.meetingPreparationId }));
+                this.dispatchEvent(new CustomEvent('formsubmitted', { detail: result.createdMeetingId }));
             } else {
                 alert(`Sales Person Input success = false\n${JSON.stringify(result)}`);
             }
