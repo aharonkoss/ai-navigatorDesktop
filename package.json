@@ -30,6 +30,10 @@
     },
     "dependencies": {
         "@salesforce-ux/design-system": "^2.25.6",
-        "navigo": "^8.11.1"
+        "cors": "^2.8.5",
+        "dotenv": "^16.4.7",
+        "express": "^4.21.2",
+        "navigo": "^8.11.1",
+        "openai": "^4.80.0"
     }
 }
